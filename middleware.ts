@@ -24,6 +24,6 @@ export const adminRoute = async (ctx: Context, next: Next) => {
     return;
   }
 
-  ctx.response.status = 401;
-  ctx.response.body = { message: "Unauthorized" };
+  ctx.response.status = 403;
+  ctx.response.body = { message: "Forbidden" };
 };

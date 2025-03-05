@@ -1,4 +1,6 @@
 import { MongoClient } from "../../deps.ts";
+import { IngredientDBO } from "../dbos/ingredient.dbo.ts";
+import { RecetteDBO } from "../dbos/recette.dbo.ts";
 
 const MONGO_URI = Deno.env.get("MONGO_URI");
 const MONGO_DB = Deno.env.get("MONGO_DB");
@@ -25,3 +27,6 @@ try {
   Deno.exit(1);
 }
 const db = client.db(MONGO_DB);
+
+export const ingredientCollection = db.collection<IngredientDBO>("ingredients");
+export const recetteCollection = db.collection<RecetteDBO>("recettes");
