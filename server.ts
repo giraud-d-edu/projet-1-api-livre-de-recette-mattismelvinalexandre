@@ -1,6 +1,10 @@
 import { ZodError, Application, isHttpError } from "./deps.ts";
 import { statusCodeHandler } from "./errors/StatusCodeHandler.ts";
-import { ingredientRouter, pingRouter } from "./routes/routes.ts";
+import {
+  ingredientRouter,
+  pingRouter,
+  recetteRouter,
+} from "./routes/routes.ts";
 const app = new Application();
 
 app.use(async (context, next) => {
@@ -31,6 +35,8 @@ app.use(pingRouter.routes());
 app.use(pingRouter.allowedMethods());
 app.use(ingredientRouter.routes());
 app.use(ingredientRouter.allowedMethods());
+app.use(recetteRouter.routes());
+app.use(recetteRouter.allowedMethods());
 
 console.log("Server started on http://localhost:8000");
 await app.listen({ port: 8000 });
