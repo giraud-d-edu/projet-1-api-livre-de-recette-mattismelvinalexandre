@@ -1,27 +1,14 @@
 {
 	"info": {
-		"_postman_id": "9d06c09b-3e73-450c-ac90-6f807102c881",
+		"_postman_id": "b43bb20b-565a-4d63-92f8-c954ba30542c",
 		"name": "API Recettes Deno",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "42775270"
+		"_exporter_id": "40330956"
 	},
 	"item": [
 		{
 			"name": "Recette",
 			"item": [
-				{
-					"name": "Search",
-					"item": [
-						{
-							"name": "Rechercher",
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
-						}
-					]
-				},
 				{
 					"name": "Récupérer toutes les recettes",
 					"request": {
@@ -56,6 +43,26 @@
 							"path": [
 								"recettes",
 								"{{recetteID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rechercher une recette",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/ingredients/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"ingredients",
+								"search"
 							]
 						}
 					},
@@ -169,6 +176,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\":\"P\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:8000/ingredients",
 							"protocol": "http",
@@ -243,6 +259,43 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "test",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
