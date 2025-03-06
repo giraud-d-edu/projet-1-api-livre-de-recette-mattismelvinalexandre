@@ -1,8 +1,7 @@
 import { ObjectId, RouterContext } from "../deps.ts";
 import BadRequestError from "../errors/BadRequest.error.ts";
-import Recette from "../models/recette.model.ts";
 import * as recetteService from "../services/recette.service.ts";
-import { recetteDto } from "./dtos/recette.dto.ts";
+import { recetteDto, recetteDTOToModel } from "./dtos/recette.dto.ts";
 
 export const getAllRecettes = async (ctx: RouterContext<"/recettes">) => {
   ctx.response.body = await recetteService.getAllRecettes();
@@ -21,7 +20,7 @@ export const getRecetteById = async (ctx: RouterContext<"/recettes/:id">) => {
 
 export const createRecette = async (ctx: RouterContext<"/recettes">) => {
   const recette = recetteDto.parse(await ctx.request.body.json());
-  await recetteService.createRecette(recette as unknown as Recette);
+  await recetteService.createRecette(recetteDTOToModel(recette));
   ctx.response.body = "Recette created";
 };
 
@@ -33,7 +32,7 @@ export const updateRecette = async (ctx: RouterContext<"/recettes/:id">) => {
     );
   }
   const recette = recetteDto.parse(await ctx.request.body.json());
-  await recetteService.updateRecette(id, recette as unknown as Recette);
+  await recetteService.updateRecette(id, recetteDTOToModel(recette));
   ctx.response.body = "Recette updated";
 };
 
@@ -46,4 +45,13 @@ export const deleteRecette = async (ctx: RouterContext<"/recettes/:id">) => {
   }
   await recetteService.deleteRecette(id);
   ctx.response.body = "Recette deleted";
+};
+
+export const searchRecettes = async (ctx: RouterContext<"/search">) => {
+  const query = ctx.request.url.searchParams.get("query");
+  const type = ctx.request.url.searchParams.get("type");
+  if (!query || !type) {
+    throw new BadRequestError("Query and type are required");
+  }
+  ctx.response.body = await recetteService.searchRecettes(query, type);
 };

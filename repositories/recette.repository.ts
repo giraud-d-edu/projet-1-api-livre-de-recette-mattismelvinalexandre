@@ -1,6 +1,7 @@
 import { ObjectId } from "../deps.ts";
 import NotFoundError from "../errors/NotFound.error.ts";
-import Recette from "../models/recette.model.ts";
+import NotModifiedError from "../errors/NotModified.error.ts";
+import Recette, { SousCategory } from "../models/recette.model.ts";
 import { recetteCollection } from "./db/mongo.ts";
 import { RecetteDBOToModel } from "./dbos/recette.dbo.ts";
 
@@ -22,7 +23,7 @@ export const getRecetteById = async (id: string) => {
 export const createRecette = async (recette: Recette) => {
   const result = await recetteCollection.insertOne(recette);
   if (!result.acknowledged) {
-    throw new Error("Recette not created");
+    throw new Error(`Recette with id ${recette.id} not created`);
   }
   return result.acknowledged;
 };
@@ -32,8 +33,11 @@ export const updateRecette = async (id: string, recette: Recette) => {
     { _id: new ObjectId(id) },
     { $set: recette }
   );
-  if (!result.modifiedCount) {
-    throw new NotFoundError("Recette not updated");
+  if (!result.matchedCount) {
+    throw new NotFoundError(`Recette with id ${recette.id} not found`);
+  }
+  if (result.matchedCount > 0 && result.modifiedCount === 0) {
+    throw new NotModifiedError(`Recette already updated`);
   }
   return result.modifiedCount > 0;
 };
@@ -43,7 +47,43 @@ export const deleteRecette = async (id: string) => {
     _id: new ObjectId(id),
   });
   if (!result.deletedCount) {
-    throw new NotFoundError("Recette not deleted");
+    throw new NotFoundError(`Recette with id ${id} not found`);
   }
   return result.deletedCount > 0;
+};
+
+export const searchRecettesByNom = async (nom: string) => {
+  const recettes = await recetteCollection
+    .find({
+      nom: { $regex: nom, $options: "i" },
+    })
+    .toArray();
+  return recettes.map(RecetteDBOToModel);
+};
+
+export const searchRecettesByOrigine = async (origine: string) => {
+  const recettes = await recetteCollection
+    .find({
+      origine: { $regex: origine, $options: "i" },
+    })
+    .toArray();
+  return recettes.map(RecetteDBOToModel);
+};
+
+export const searchRecettesByCategory = async (category: SousCategory) => {
+  const recettes = await recetteCollection
+    .find({
+      sous_category: { $in: [category] },
+    })
+    .toArray();
+  return recettes.map(RecetteDBOToModel);
+};
+
+export const searchRecettesByIngredientId = async (ingredientId: string) => {
+  const recettes = await recetteCollection
+    .find({
+      "ingredients.ingredient": new ObjectId(ingredientId),
+    })
+    .toArray();
+  return recettes.map(RecetteDBOToModel);
 };

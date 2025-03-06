@@ -1,5 +1,5 @@
-import { ZodError, Application, isHttpError } from "./deps.ts";
-import { statusCodeHandler } from "./errors/StatusCodeHandler.ts";
+import { Application } from "./deps.ts";
+import { errorHandler } from "./middleware/errors.ts";
 import {
   ingredientRouter,
   pingRouter,
@@ -7,29 +7,7 @@ import {
 } from "./routes/routes.ts";
 const app = new Application();
 
-app.use(async (context, next) => {
-  try {
-    await next();
-  } catch (err) {
-    if (err instanceof ZodError) {
-      context.response.status = 400;
-      context.response.body = err.errors.map((e) => ({
-        path: e.path,
-        message: e.message,
-      }));
-    } else if (isHttpError(err)) {
-      context.response.status = err.status;
-      context.response.body = err.message;
-    } else if (err instanceof Error) {
-      context.response.status = statusCodeHandler(err);
-      context.response.body = err.message;
-    } else {
-      context.response.status = 500;
-      context.response.body = (err as Error).message;
-    }
-    context.response.type = "json";
-  }
-});
+app.use(errorHandler);
 
 app.use(pingRouter.routes());
 app.use(pingRouter.allowedMethods());

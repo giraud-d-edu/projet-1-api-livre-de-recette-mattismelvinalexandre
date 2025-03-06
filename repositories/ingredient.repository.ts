@@ -6,6 +6,7 @@ import {
 } from "./dbos/ingredient.dbo.ts";
 import NotFoundError from "../errors/NotFound.error.ts";
 import Ingredient from "../models/ingredient.model.ts";
+import NotModifiedError from "../errors/NotModified.error.ts";
 
 export const getAllIngredients = async () => {
   const ingredients = await ingredientCollection.find().toArray();
@@ -32,13 +33,16 @@ export const createIngredient = async (ingredient: Ingredient) => {
   return result.acknowledged;
 };
 
-export const updateIngredient = async (id: string, ingredient: Ingredient) => {
+export const updateIngredient = async (ingredient: Ingredient) => {
   const result = await ingredientCollection.updateOne(
-    { _id: new ObjectId(id) },
+    { _id: new ObjectId(ingredient.id) },
     { $set: IngredientModelToDBO(ingredient) }
   );
-  if (!result.modifiedCount) {
-    throw new NotFoundError("Ingredient not updated");
+  if (!result.matchedCount) {
+    throw new NotFoundError(`Ingredient with id ${ingredient.id} not found`);
+  }
+  if (result.matchedCount > 0 && result.modifiedCount === 0) {
+    throw new NotModifiedError("Ingredient already updated");
   }
   return result.modifiedCount > 0;
 };
@@ -48,7 +52,16 @@ export const deleteIngredient = async (id: string) => {
     _id: new ObjectId(id),
   });
   if (!result.deletedCount) {
-    throw new NotFoundError("Ingredient not deleted");
+    throw new NotFoundError(`Ingredient with id ${id} not found`);
   }
   return result.deletedCount > 0;
+};
+
+export const searchIngredientsByNom = async (nom: string) => {
+  const ingredients = await ingredientCollection
+    .find({
+      nom: { $regex: nom, $options: "i" },
+    })
+    .toArray();
+  return ingredients.map(IngredientDBOToModel);
 };
