@@ -1,10 +1,12 @@
-import { z } from "../../deps.ts";
+import { ObjectId, z } from "../../deps.ts";
+import BadRequestError from "../../errors/BadRequest.error.ts";
+import Recette, { Category, SousCategory } from "../../models/recette.model.ts";
 
 export const recetteDto = z.object({
   nom: z.string().max(100).min(1),
   description: z.string().max(500),
-  category: z.string().max(100),
-  sous_category: z.array(z.string().max(100)),
+  category: z.nativeEnum(Category),
+  sous_category: z.array(z.nativeEnum(SousCategory)),
   tps_preparation_min: z.number().max(1440).min(0),
   tps_cuisson_min: z.number().max(1440).min(0),
   type_cuisson: z.string().max(100),
@@ -18,3 +20,26 @@ export const recetteDto = z.object({
 });
 
 export type RecetteDtoType = z.infer<typeof recetteDto>;
+
+export const recetteDTOToModel = (recetteDto: RecetteDtoType): Recette => {
+  return {
+    nom: recetteDto.nom,
+    description: recetteDto.description,
+    category: recetteDto.category,
+    sous_category: recetteDto.sous_category,
+    tps_preparation_min: recetteDto.tps_preparation_min,
+    tps_cuisson_min: recetteDto.tps_cuisson_min,
+    type_cuisson: recetteDto.type_cuisson,
+    origine: recetteDto.origine,
+    ingredients: recetteDto.ingredients.map((ingredient) => ({
+      ingredient: ObjectId.isValid(ingredient.ingredient)
+        ? new ObjectId(ingredient.ingredient)
+        : (() => {
+            throw new BadRequestError(
+              "Invalid id : Must be a ObjectId (12-byte hexadecimal string)"
+            );
+          })(),
+      quantite_gr: ingredient.quantity,
+    })),
+  } as Recette;
+};

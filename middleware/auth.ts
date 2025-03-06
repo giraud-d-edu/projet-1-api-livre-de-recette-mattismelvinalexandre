@@ -1,5 +1,5 @@
 import "jsr:@std/dotenv/load";
-import { Context, Next } from "./deps.ts";
+import { Context, Next } from "./../deps.ts";
 
 export const authenticatedRoute = async (ctx: Context, next: Next) => {
   const isAuthenticated =

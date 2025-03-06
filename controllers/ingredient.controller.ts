@@ -35,8 +35,11 @@ export const updateIngredient = async (
       "Invalid id : Must be a ObjectId (12-byte hexadecimal string)"
     );
   }
-  const ingredient = await ctx.request.body.json();
-  await ingredientService.updateIngredient(id, ingredient);
+  const ingredient = IngredientDto.parse(
+    await ctx.request.body.json()
+  ) as Ingredient;
+  ingredient.id = id;
+  await ingredientService.updateIngredient(ingredient);
   ctx.response.body = "Ingredient updated";
 };
 

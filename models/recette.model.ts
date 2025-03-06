@@ -1,9 +1,10 @@
-import Ingredient from "./ingredient.model.ts";
+import { ObjectId } from "../deps.ts";
 
 export enum Category {
   Entree = "Entrée",
   Plat = "Plat",
   Dessert = "Dessert",
+  Autre = "Autre",
 }
 
 export enum SousCategory {
@@ -23,10 +24,12 @@ export enum SousCategory {
   Gateau = "Gâteau",
   Cake = "Cake",
   Biscuit = "Biscuit",
+  Pates = "Pâtes",
+  Riz = "Riz",
 }
 
 export interface IngredientQuantity {
-  ingredient: Ingredient;
+  ingredient: ObjectId;
   quantite_gr: number;
 }
 

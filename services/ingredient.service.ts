@@ -13,8 +13,8 @@ export const createIngredient = async (ingredient: Ingredient) => {
   return await ingredientRepository.createIngredient(ingredient);
 };
 
-export const updateIngredient = async (id: string, ingredient: Ingredient) => {
-  return await ingredientRepository.updateIngredient(id, ingredient);
+export const updateIngredient = async (ingredient: Ingredient) => {
+  return await ingredientRepository.updateIngredient(ingredient);
 };
 
 export const deleteIngredient = async (id: string) => {
