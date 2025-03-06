@@ -1,5 +1,4 @@
-import { isHttpError } from "jsr:@oak/commons@^1.0/http_errors";
-import { ZodError, Application } from "./deps.ts";
+import { ZodError, Application, isHttpError } from "./deps.ts";
 import { statusCodeHandler } from "./errors/StatusCodeHandler.ts";
 import { ingredientRouter, pingRouter } from "./routes/routes.ts";
 const app = new Application();

@@ -19,7 +19,7 @@ export const getIngredientById = async (id: string) => {
   if (!ingredient) {
     throw new NotFoundError(`Ingredient with id ${id} not found`);
   }
-  return ingredient ? IngredientDBOToModel(ingredient) : null;
+  return IngredientDBOToModel(ingredient);
 };
 
 export const createIngredient = async (ingredient: Ingredient) => {

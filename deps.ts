@@ -7,3 +7,4 @@ export { z } from "https://deno.land/x/zod@v3.24.2/index.ts";
 export { Application } from "https://deno.land/x/oak@v17.1.4/mod.ts";
 export type { RouterContext } from "https://deno.land/x/oak@v17.1.4/mod.ts";
 export { ZodError } from "https://deno.land/x/zod@v3.24.2/index.ts";
+export { isHttpError } from "jsr:@oak/commons@^1.0/http_errors";

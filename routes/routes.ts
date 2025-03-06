@@ -4,6 +4,7 @@ import { Router } from "../deps.ts";
 
 export const pingRouter = new Router();
 export const ingredientRouter = new Router();
+export const recetteRouter = new Router();
 
 pingRouter.get("/", (ctx) => {
   ctx.response.body = "Bienvenue sur l'API de MMA";
