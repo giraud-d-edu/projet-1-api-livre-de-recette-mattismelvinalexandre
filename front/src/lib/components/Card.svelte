@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import type { Recette } from '$lib/types/recette.ts';
 
 	export let recette: Recette;
@@ -30,7 +31,7 @@
 				<li>- {ingredient.quantite_gr} grammes de {ingredient.nom}</li>
 			{/each}
 		</ul>
-    <button>
+    <button on:click={() => goto(`/recette/${recette.id}`)}>
       👩‍🍳 Voir la recette
     </button>
 	</footer>

@@ -22,3 +22,27 @@ export async function getAllRecettes() {
     }
     recettes.set(data);
 }
+
+export async function getRecette(id: string) {
+    const data = await RecettesApi.findOne(id);
+    data.ingredients = await Promise.all(
+        data.ingredients.map(async (ingredient: Ingredient) => {
+            const ingredientData = await IngredientsApi.findOne(ingredient.ingredient as string);
+            return {
+                ...ingredient,
+                nom: ingredientData.nom,
+            };
+        })
+    );
+    recette.set(data);
+}
+
+export async function deleteRecette(id: string) {
+    await RecettesApi.deleteOne(id);
+    recette.update((value) => {
+        if (value && value.id === id) {
+            return null;
+        }
+        return value;
+    });
+}
