@@ -1,4 +1,4 @@
-import { WithId, ObjectId } from "../../deps.ts";
+import { WithId, ObjectId } from "../../../deps.ts";
 import Ingredient from "../../models/ingredient.model.ts";
 
 export interface IngredientDBO {

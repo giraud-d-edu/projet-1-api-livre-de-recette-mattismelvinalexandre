@@ -1,4 +1,4 @@
-import { ObjectId, WithId } from "../../deps.ts";
+import { ObjectId, WithId } from "../../../deps.ts";
 import Recette, {
   Category,
   IngredientQuantity,

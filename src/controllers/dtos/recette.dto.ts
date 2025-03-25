@@ -1,4 +1,4 @@
-import { ObjectId, z } from "../../deps.ts";
+import { ObjectId, z } from "../../../deps.ts";
 import BadRequestError from "../../errors/BadRequest.error.ts";
 import Recette, { Category, SousCategory } from "../../models/recette.model.ts";
 

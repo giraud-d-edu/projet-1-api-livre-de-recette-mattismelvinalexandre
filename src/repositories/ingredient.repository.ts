@@ -1,5 +1,5 @@
 import { ingredientCollection } from "./db/mongo.ts";
-import { ObjectId } from "../deps.ts";
+import { ObjectId } from "../../deps.ts";
 import {
   IngredientDBOToModel,
   IngredientModelToDBO,

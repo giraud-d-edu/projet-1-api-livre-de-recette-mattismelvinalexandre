@@ -1,4 +1,4 @@
-import { ObjectId, RouterContext } from "../deps.ts";
+import { ObjectId, RouterContext } from "../../deps.ts";
 import BadRequestError from "../errors/BadRequest.error.ts";
 import Ingredient from "../models/ingredient.model.ts";
 import * as ingredientService from "../services/ingredient.service.ts";

@@ -1,10 +1,10 @@
 import { Application } from "./deps.ts";
-import { errorHandler } from "./middleware/errors.ts";
+import { errorHandler } from "./src/middleware/errors.ts";
 import {
   ingredientRouter,
   pingRouter,
   recetteRouter,
-} from "./routes/routes.ts";
+} from "./src/routes/routes.ts";
 import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
 const app = new Application();
 
