@@ -1,11 +1,17 @@
 import { Application } from "./deps.ts";
+import { oakCors } from "./deps.ts";
 import { errorHandler } from "./middleware/errors.ts";
 import {
   ingredientRouter,
   pingRouter,
   recetteRouter,
 } from "./routes/routes.ts";
+
 const app = new Application();
+
+app.use(oakCors({
+  origin: "*",
+}));
 
 app.use(errorHandler);
 
