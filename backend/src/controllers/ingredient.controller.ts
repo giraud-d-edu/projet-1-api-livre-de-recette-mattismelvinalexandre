@@ -14,7 +14,7 @@ export const getIngredientById = async (
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id : Must be a ObjectId (12-byte hexadecimal string)"
+      "Invalid id : Must be a 12-byte hexadecimal string"
     );
   }
   ctx.response.body = await ingredientService.getIngredientById(id);
@@ -32,7 +32,7 @@ export const updateIngredient = async (
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id : Must be a ObjectId (12-byte hexadecimal string)"
+      "Invalid id : Must be a 12-byte hexadecimal string"
     );
   }
   const ingredient = IngredientDto.parse(
@@ -49,7 +49,7 @@ export const deleteIngredient = async (
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id : Must be a ObjectId (12-byte hexadecimal string)"
+      "Invalid id : Must be a 12-byte hexadecimal string"
     );
   }
   await ingredientService.deleteIngredient(id);

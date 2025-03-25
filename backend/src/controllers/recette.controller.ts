@@ -11,7 +11,7 @@ export const getRecetteById = async (ctx: RouterContext<"/recettes/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id: Must be an ObjectId (12-byte hexadecimal string)"
+      "Invalid id: Must be an 12-byte hexadecimal string"
     );
   }
 
@@ -28,7 +28,7 @@ export const updateRecette = async (ctx: RouterContext<"/recettes/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id: Must be an ObjectId (12-byte hexadecimal string)"
+      "Invalid id: Must be an 12-byte hexadecimal string"
     );
   }
   const recette = recetteDto.parse(await ctx.request.body.json());
@@ -40,7 +40,7 @@ export const deleteRecette = async (ctx: RouterContext<"/recettes/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id: Must be an ObjectId (12-byte hexadecimal string)"
+      "Invalid id: Must be an 12-byte hexadecimal string"
     );
   }
   await recetteService.deleteRecette(id);
