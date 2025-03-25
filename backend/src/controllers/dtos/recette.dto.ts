@@ -1,13 +1,13 @@
 import { ObjectId, z } from "../../../deps.ts";
 import BadRequestError from "../../errors/BadRequest.error.ts";
-import Recette, { Category, SousCategory } from "../../models/recette.model.ts";
+import Recette, { Category } from "../../models/recette.model.ts";
 
 export const recetteDto = z.object({
   id: z.string().length(12),
   nom: z.string().max(100).min(1),
   description: z.string().max(500),
   category: z.nativeEnum(Category),
-  sous_category: z.array(z.nativeEnum(SousCategory)),
+  sous_category: z.array(z.string().max(100)),
   tps_preparation_min: z.number().max(1440).min(0),
   tps_cuisson_min: z.number().max(1440).min(0),
   type_cuisson: z.string().max(100),
@@ -24,7 +24,7 @@ export const recetteCandidateDto = z.object({
   nom: z.string().max(100).min(1),
   description: z.string().max(500),
   category: z.nativeEnum(Category),
-  sous_category: z.array(z.nativeEnum(SousCategory)),
+  sous_category: z.array(z.string().max(100)),
   tps_preparation_min: z.number().max(1440).min(0),
   tps_cuisson_min: z.number().max(1440).min(0),
   type_cuisson: z.string().max(100),

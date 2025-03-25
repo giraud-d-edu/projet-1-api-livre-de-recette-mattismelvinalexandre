@@ -1,7 +1,7 @@
 import { ObjectId } from "../../deps.ts";
 import NotFoundError from "../errors/NotFound.error.ts";
 import NotModifiedError from "../errors/NotModified.error.ts";
-import Recette, { SousCategory } from "../models/recette.model.ts";
+import Recette from "../models/recette.model.ts";
 import { recetteCollection } from "./db/mongo.ts";
 import { RecetteDBOToModel } from "./dbos/recette.dbo.ts";
 
@@ -70,7 +70,7 @@ export const searchRecettesByOrigine = async (origine: string) => {
   return recettes.map(RecetteDBOToModel);
 };
 
-export const searchRecettesByCategory = async (category: SousCategory) => {
+export const searchRecettesByCategory = async (category: string) => {
   const recettes = await recetteCollection
     .find({
       sous_category: { $in: [category] },

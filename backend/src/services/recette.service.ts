@@ -1,5 +1,5 @@
 import * as recetteRepository from "../repositories/recette.repository.ts";
-import Recette, { SousCategory } from "../models/recette.model.ts";
+import Recette from "../models/recette.model.ts";
 import * as ingredientRepository from "../repositories/ingredient.repository.ts";
 import BadRequestError from "../errors/BadRequest.error.ts";
 import NotFoundError from "../errors/NotFound.error.ts";
@@ -40,15 +40,7 @@ export const searchRecettes = async (query: string, type: string) => {
       );
     }
     case "category": {
-      if (!Object.values(SousCategory).includes(query as SousCategory)) {
-        throw new BadRequestError(
-          "Invalid category: should be one of " +
-            Object.values(SousCategory).join(", ")
-        );
-      }
-      return await recetteRepository.searchRecettesByCategory(
-        query as SousCategory
-      );
+      return await recetteRepository.searchRecettesByCategory(query);
     }
     case "origine":
       return await recetteRepository.searchRecettesByOrigine(query);
