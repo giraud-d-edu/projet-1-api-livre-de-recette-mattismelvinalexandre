@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import Card from '$lib/components/Card.svelte';
   import { getAllRecettes, recettes } from '$lib/stores/recette';
+	import { goto } from '$app/navigation';
 
   let loading = true
 
@@ -14,7 +15,10 @@
   });
 </script>
 
-<h1>Recettes</h1>
+<div class="header-container">
+  <h1>Recettes</h1>
+  <button class="styled-button" on:click={() => goto("/recette/create")}>Ajouter</button>
+</div>
 
 {#if loading}
   <p>Chargement des recettes...</p>
@@ -29,9 +33,24 @@
 {/if}
 
 <style>
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+  }
   .recipe-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+  }
+
+  .styled-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
   }
 </style>
