@@ -19,7 +19,7 @@
 {#if loading}
   <p>Chargement des recettes...</p>
 {:else if $recettes.length === 0}
-  <p>Aucune recette disponible.</p>xz
+  <p>Aucune recette disponible.</p>
 {:else}
   <div class="recipe-list">
     {#each $recettes as recette}
