@@ -25,12 +25,12 @@ export const createRecette = async (recette: Recette) => {
   if (!result.acknowledged) {
     throw new Error(`Recette with id ${recette.id} not created`);
   }
-  return result.acknowledged;
+  return await getRecetteById(result.insertedId.toString());
 };
 
-export const updateRecette = async (id: string, recette: Recette) => {
+export const updateRecette = async (recette: Recette) => {
   const result = await recetteCollection.updateOne(
-    { _id: new ObjectId(id) },
+    { _id: new ObjectId(recette.id) },
     { $set: recette }
   );
   if (!result.matchedCount) {
@@ -39,7 +39,7 @@ export const updateRecette = async (id: string, recette: Recette) => {
   if (result.matchedCount > 0 && result.modifiedCount === 0) {
     throw new NotModifiedError(`Recette already updated`);
   }
-  return result.modifiedCount > 0;
+  return await getRecetteById(recette.id);
 };
 
 export const deleteRecette = async (id: string) => {

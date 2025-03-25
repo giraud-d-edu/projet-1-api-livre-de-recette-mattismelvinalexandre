@@ -30,7 +30,7 @@ export const createIngredient = async (ingredient: Ingredient) => {
   if (!result.acknowledged) {
     throw new Error("Ingredient not created");
   }
-  return result.acknowledged;
+  return await getIngredientById(result.insertedId.toString());
 };
 
 export const updateIngredient = async (ingredient: Ingredient) => {
@@ -44,7 +44,7 @@ export const updateIngredient = async (ingredient: Ingredient) => {
   if (result.matchedCount > 0 && result.modifiedCount === 0) {
     throw new NotModifiedError("Ingredient already updated");
   }
-  return result.modifiedCount > 0;
+  return await getIngredientById(ingredient.id);
 };
 
 export const deleteIngredient = async (id: string) => {

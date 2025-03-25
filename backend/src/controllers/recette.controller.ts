@@ -1,7 +1,10 @@
 import { ObjectId, RouterContext } from "../../deps.ts";
 import BadRequestError from "../errors/BadRequest.error.ts";
 import * as recetteService from "../services/recette.service.ts";
-import { recetteDto, recetteDTOToModel } from "./dtos/recette.dto.ts";
+import {
+  recetteCandidateDto,
+  recetteCandidateDTOToModel,
+} from "./dtos/recette.dto.ts";
 
 export const getAllRecettes = async (ctx: RouterContext<"/recettes">) => {
   ctx.response.body = await recetteService.getAllRecettes();
@@ -19,8 +22,8 @@ export const getRecetteById = async (ctx: RouterContext<"/recettes/:id">) => {
 };
 
 export const createRecette = async (ctx: RouterContext<"/recettes">) => {
-  const recette = recetteDto.parse(await ctx.request.body.json());
-  await recetteService.createRecette(recetteDTOToModel(recette));
+  const recette = recetteCandidateDto.parse(await ctx.request.body.json());
+  await recetteService.createRecette(recetteCandidateDTOToModel(recette));
   ctx.response.body = "Recette created";
 };
 
@@ -31,8 +34,12 @@ export const updateRecette = async (ctx: RouterContext<"/recettes/:id">) => {
       "Invalid id: Must be an 12-byte hexadecimal string"
     );
   }
-  const recette = recetteDto.parse(await ctx.request.body.json());
-  await recetteService.updateRecette(id, recetteDTOToModel(recette));
+  const recetteCandidate = recetteCandidateDto.parse(
+    await ctx.request.body.json()
+  );
+  const recette = recetteCandidateDTOToModel(recetteCandidate);
+  recette.id = id;
+  await recetteService.updateRecette(recette);
   ctx.response.body = "Recette updated";
 };
 

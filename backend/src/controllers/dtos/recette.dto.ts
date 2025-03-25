@@ -3,6 +3,7 @@ import BadRequestError from "../../errors/BadRequest.error.ts";
 import Recette, { Category, SousCategory } from "../../models/recette.model.ts";
 
 export const recetteDto = z.object({
+  id: z.string().length(12),
   nom: z.string().max(100).min(1),
   description: z.string().max(500),
   category: z.nativeEnum(Category),
@@ -19,9 +20,28 @@ export const recetteDto = z.object({
   ),
 });
 
-export type RecetteDtoType = z.infer<typeof recetteDto>;
+export const recetteCandidateDto = z.object({
+  nom: z.string().max(100).min(1),
+  description: z.string().max(500),
+  category: z.nativeEnum(Category),
+  sous_category: z.array(z.nativeEnum(SousCategory)),
+  tps_preparation_min: z.number().max(1440).min(0),
+  tps_cuisson_min: z.number().max(1440).min(0),
+  type_cuisson: z.string().max(100),
+  origine: z.string().max(100),
+  ingredients: z.array(
+    z.object({
+      ingredient: z.string().max(100),
+      quantity: z.number().max(10000),
+    })
+  ),
+});
 
-export const recetteDTOToModel = (recetteDto: RecetteDtoType): Recette => {
+export type RecetteCandidateDtoType = z.infer<typeof recetteCandidateDto>;
+
+export const recetteCandidateDTOToModel = (
+  recetteDto: RecetteCandidateDtoType
+): Recette => {
   return {
     nom: recetteDto.nom,
     description: recetteDto.description,

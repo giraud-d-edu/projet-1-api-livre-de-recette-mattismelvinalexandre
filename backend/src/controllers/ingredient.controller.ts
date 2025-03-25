@@ -2,7 +2,7 @@ import { ObjectId, RouterContext } from "../../deps.ts";
 import BadRequestError from "../errors/BadRequest.error.ts";
 import Ingredient from "../models/ingredient.model.ts";
 import * as ingredientService from "../services/ingredient.service.ts";
-import { IngredientDto } from "./dtos/ingredient.dto.ts";
+import { IngredientCandidateDto } from "./dtos/ingredient.dto.ts";
 
 export const getAllIngredients = async (ctx: RouterContext<"/ingredients">) => {
   ctx.response.body = await ingredientService.getAllIngredients();
@@ -21,9 +21,12 @@ export const getIngredientById = async (
 };
 
 export const createIngredient = async (ctx: RouterContext<"/ingredients">) => {
-  const ingredient = IngredientDto.parse(await ctx.request.body.json());
-  await ingredientService.createIngredient(ingredient as Ingredient);
-  ctx.response.body = "Ingredient created";
+  const ingredient = IngredientCandidateDto.parse(
+    await ctx.request.body.json()
+  );
+  ctx.response.body = await ingredientService.createIngredient(
+    ingredient as Ingredient
+  );
 };
 
 export const updateIngredient = async (
@@ -35,12 +38,11 @@ export const updateIngredient = async (
       "Invalid id : Must be a 12-byte hexadecimal string"
     );
   }
-  const ingredient = IngredientDto.parse(
+  const ingredient = IngredientCandidateDto.parse(
     await ctx.request.body.json()
   ) as Ingredient;
   ingredient.id = id;
-  await ingredientService.updateIngredient(ingredient);
-  ctx.response.body = "Ingredient updated";
+  ctx.response.body = await ingredientService.updateIngredient(ingredient);
 };
 
 export const deleteIngredient = async (

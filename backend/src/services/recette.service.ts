@@ -16,8 +16,8 @@ export const createRecette = async (recette: Recette) => {
   return await recetteRepository.createRecette(recette);
 };
 
-export const updateRecette = async (id: string, recette: Recette) => {
-  return await recetteRepository.updateRecette(id, recette);
+export const updateRecette = async (recette: Recette) => {
+  return await recetteRepository.updateRecette(recette);
 };
 
 export const deleteRecette = async (id: string) => {
