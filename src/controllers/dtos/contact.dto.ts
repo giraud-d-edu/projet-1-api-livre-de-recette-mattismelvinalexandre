@@ -1,4 +1,4 @@
-import { z } from "../../deps.ts";
+import { z } from "../../../deps.ts";
 
 export const ContactDto = z.object({
   name: z.string().max(50).min(3),

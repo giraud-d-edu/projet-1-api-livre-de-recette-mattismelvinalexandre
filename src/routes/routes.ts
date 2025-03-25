@@ -1,6 +1,6 @@
 import { adminRoute, authenticatedRoute } from "../middleware/auth.ts";
 import * as ingredientController from "../controllers/ingredient.controller.ts";
-import { Router } from "../deps.ts";
+import { Router } from "../../deps.ts";
 import * as recetteController from "../controllers/recette.controller.ts";
 import { ContactDto } from "../controllers/dtos/contact.dto.ts";
 

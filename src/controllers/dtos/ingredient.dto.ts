@@ -1,4 +1,4 @@
-import { z } from "../../deps.ts";
+import { z } from "../../../deps.ts";
 
 export const IngredientDto = z.object({
   nom: z.string().max(50).min(3),

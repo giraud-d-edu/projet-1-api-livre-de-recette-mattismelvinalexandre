@@ -1,6 +1,5 @@
-import { isHttpError, Status, ZodError } from "../deps.ts";
+import { isHttpError, Status, ZodError, Context, Next } from "../../deps.ts";
 import { statusCodeHandler } from "../errors/StatusCodeHandler.ts";
-import { Context, Next } from "./../deps.ts";
 
 export const errorHandler = async (context: Context, next: Next) => {
   try {

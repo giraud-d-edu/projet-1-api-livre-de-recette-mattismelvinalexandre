@@ -1,4 +1,4 @@
-import { Status } from "../deps.ts";
+import { Status } from "../../deps.ts";
 
 export default class BadRequestError extends Error {
   statusCode: number;

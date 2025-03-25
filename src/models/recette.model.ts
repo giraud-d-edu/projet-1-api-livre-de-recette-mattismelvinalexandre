@@ -1,4 +1,4 @@
-import { ObjectId } from "../deps.ts";
+import { ObjectId } from "../../deps.ts";
 
 export enum Category {
   Entree = "Entrée",

@@ -1,4 +1,4 @@
-import { ObjectId } from "../deps.ts";
+import { ObjectId } from "../../deps.ts";
 import NotFoundError from "../errors/NotFound.error.ts";
 import NotModifiedError from "../errors/NotModified.error.ts";
 import Recette, { SousCategory } from "../models/recette.model.ts";
