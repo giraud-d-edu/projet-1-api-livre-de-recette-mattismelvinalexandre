@@ -12,7 +12,7 @@
 
     let ingrendent_quantity = writable<IngredientQuantity>({
       ingredient: '',
-      quantite_gr: ''
+      quantite_gr: 0
     });
     let recette = writable<Recette>({
       nom: '',
