@@ -39,6 +39,11 @@ ingredientRouter.delete(
 );
 
 recetteRouter.get("/recettes", recetteController.getAllRecettes);
+recetteRouter.get(
+  "/recettes/unique-informations",
+  recetteController.getAllUniqueInformations
+);
+recetteRouter.get("/recettes/search", recetteController.searchRecettes);
 recetteRouter.get("/recettes/:id", recetteController.getRecetteById);
 recetteRouter.post(
   "/recettes",
@@ -55,4 +60,3 @@ recetteRouter.delete(
   adminRoute,
   recetteController.deleteRecette
 );
-recetteRouter.get("/search", recetteController.searchRecettes);

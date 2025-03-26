@@ -1,8 +1,8 @@
 import * as recetteRepository from "../repositories/recette.repository.ts";
 import Recette from "../models/recette.model.ts";
 import * as ingredientRepository from "../repositories/ingredient.repository.ts";
-import BadRequestError from "../errors/BadRequest.error.ts";
-import NotFoundError from "../errors/NotFound.error.ts";
+import { SearchQueryParamType } from "../controllers/dtos/search.dto.ts";
+import UniqueInformations from "../models/uniqueInformations.model.ts";
 
 export const getAllRecettes = async () => {
   return await recetteRepository.getAllRecettes();
@@ -24,29 +24,37 @@ export const deleteRecette = async (id: string) => {
   return await recetteRepository.deleteRecette(id);
 };
 
-export const searchRecettes = async (query: string, type: string) => {
-  switch (type) {
-    case "nom":
-      return await recetteRepository.searchRecettesByNom(query);
-    case "ingredient": {
-      const ingredient = await ingredientRepository.searchIngredientsByNom(
-        query
-      );
-      if (!ingredient[0]) {
-        throw new NotFoundError("Ingredient not found");
-      }
-      return await recetteRepository.searchRecettesByIngredientId(
-        ingredient[0].id
-      );
-    }
-    case "category": {
-      return await recetteRepository.searchRecettesByCategory(query);
-    }
-    case "origine":
-      return await recetteRepository.searchRecettesByOrigine(query);
-    default:
-      throw new BadRequestError(
-        "Invalid tpye : should be 'nom', 'ingredient', 'category' or 'origine'"
-      );
-  }
+export const searchRecettes = async (
+  searchQueryParams: SearchQueryParamType
+) => {};
+
+export const getAllUniqueInformations = async () => {
+  const recettes = await recetteRepository.getAllRecettes();
+  const uniqueInformations: UniqueInformations = {
+    category: Array.from(
+      new Set(recettes.flatMap((recette) => recette.sous_category))
+    ),
+    origine: Array.from(new Set(recettes.map((recette) => recette.origine))),
+    tps_preparation_min: Array.from(
+      new Set(recettes.map((recette) => recette.tps_preparation_min))
+    ),
+    tps_cuisson_min: Array.from(
+      new Set(recettes.map((recette) => recette.tps_cuisson_min))
+    ),
+    type_cuisson: Array.from(
+      new Set(recettes.map((recette) => recette.type_cuisson))
+    ),
+    ingredients: Array.from(
+      new Set(
+        recettes.flatMap((recette) =>
+          recette.ingredients.map((ingredientQuantity) =>
+            ingredientQuantity.ingredient.toString()
+          )
+        )
+      )
+    ),
+  };
+  console.log(uniqueInformations);
+
+  return uniqueInformations;
 };

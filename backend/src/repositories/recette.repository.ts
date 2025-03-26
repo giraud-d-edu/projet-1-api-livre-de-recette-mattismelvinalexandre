@@ -50,39 +50,3 @@ export const deleteRecette = async (id: string) => {
     throw new NotFoundError(`Recette with id ${id} not found`);
   }
 };
-
-export const searchRecettesByNom = async (nom: string) => {
-  const recettes = await recetteCollection
-    .find({
-      nom: { $regex: nom, $options: "i" },
-    })
-    .toArray();
-  return recettes.map(RecetteDBOToModel);
-};
-
-export const searchRecettesByOrigine = async (origine: string) => {
-  const recettes = await recetteCollection
-    .find({
-      origine: { $regex: origine, $options: "i" },
-    })
-    .toArray();
-  return recettes.map(RecetteDBOToModel);
-};
-
-export const searchRecettesByCategory = async (category: string) => {
-  const recettes = await recetteCollection
-    .find({
-      sous_category: { $in: [category] },
-    })
-    .toArray();
-  return recettes.map(RecetteDBOToModel);
-};
-
-export const searchRecettesByIngredientId = async (ingredientId: string) => {
-  const recettes = await recetteCollection
-    .find({
-      "ingredients.ingredient": new ObjectId(ingredientId),
-    })
-    .toArray();
-  return recettes.map(RecetteDBOToModel);
-};
