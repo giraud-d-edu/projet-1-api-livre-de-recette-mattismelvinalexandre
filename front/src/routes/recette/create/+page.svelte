@@ -1,20 +1,23 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
-    import * as RecettesApi from '$lib/api/recette';
-    import * as IngredientsApi from '$lib/api/ingredient';
-    import type { Recette, IngredientQuantity } from '$lib/types/recette';
+    import { type IngredientQuantity, type Recette, Category } from '$lib/types/recette';
     import { goto } from '$app/navigation';
     import InputField from '$lib/components/Input.svelte';
     import TextAreaField from '$lib/components/TextArea.svelte';
     import SelectField from '$lib/components/SelectField.svelte';
     import Button from '$lib/components/Button.svelte';
-  
+	import { getAllIngredients,ingredients } from '$lib/stores/ingredient';
+	import { createRecette } from '$lib/stores/recette';
+
+    let ingrendent_quantity = writable<IngredientQuantity>({
+      ingredient: '',
+      quantite_gr: ''
+    });
     let recette = writable<Recette>({
-      id: '',
       nom: '',
       description: '',
-      category: { name: '' },
+      category: Category.PLAT,
       sous_category: [],
       tps_preparation_min: 0,
       tps_cuisson_min: 0,
@@ -24,45 +27,55 @@
       image: ''
     });
   
-    let allIngredients = writable([]);
-  
     onMount(async () => {
-      allIngredients.set(await IngredientsApi.findAll());
+      await getAllIngredients();
     });
   
     async function submitForm() {
-      await RecettesApi.create($recette);
-      goto('/recette');
+      createRecette($recette).then(() => goto('/') );
     }
   
     function addIngredient() {
-      recette.update(r => {
-        r.ingredients.push({ ingredient: '', quantite_gr: '' });
-        return r;
-      });
+      console.log($ingrendent_quantity);
+      $recette.ingredients = [...$recette.ingredients, { ...$ingrendent_quantity }];
+      console.log($recette);
+      ingrendent_quantity.set({ ingredient: '', quantite_gr: 0 });
     }
   </script>
   
   <form on:submit|preventDefault={submitForm} class="form-container">
     <InputField label="Nom de la recette" bind:value={$recette.nom} required />
     <TextAreaField label="Description" bind:value={$recette.description} />
-    <InputField label="Catégorie" bind:value={$recette.category.name} required />
-    <InputField label="Temps de préparation (min)" type="number" bind:value={$recette.tps_preparation_min} required />
-    <InputField label="Temps de cuisson (min)" type="number" bind:value={$recette.tps_cuisson_min} required />
-    <InputField label="Type de cuisson" bind:value={$recette.type_cuisson} />
-    <InputField label="Origine" bind:value={$recette.origine} />
+    <SelectField label="Catégorie" bind:value={$recette.category} options={Object.values(Category).map(value => ({ label: value, value }))} optionLabel="label" optionValue="value" />
+    <InputField label="Temps de préparation (min)" type="number" bind:value={$recette.tps_preparation_min} required/>
+    <InputField label="Temps de cuisson (min)" type="number" bind:value={$recette.tps_cuisson_min} required/>
+    <InputField label="Type de cuisson" bind:value={$recette.type_cuisson} required/>
+    <InputField label="Origine" bind:value={$recette.origine} required/>
   
-    <label>Ingrédients</label>
-    {#each $recette.ingredients as ingredient, index}
-      <div class="ingredient-container">
-        <SelectField bind:value={ingredient.ingredient} options={$allIngredients} optionLabel="nom" optionValue="id" />
-        <InputField type="text" bind:value={ingredient.quantite_gr} placeholder="Quantité (gr)" />
+      <div id="ingredients" class="ingredient-container">
+        <SelectField label="Ingrédient" bind:value={$ingrendent_quantity.ingredient} options={$ingredients} optionLabel="nom" optionValue="id" 
+        onChange={(e: Event) => {
+          const target = e.target as HTMLSelectElement | null;
+          if (target) {
+            const selectedIngredient = $ingredients.find(ingredient => ingredient.id == target.value);
+            if (selectedIngredient) {
+              $ingrendent_quantity.nom = selectedIngredient.nom;
+            }
+          }
+        }}
+        />
+        <InputField label="Quantité (gr)" type="number" bind:value={$ingrendent_quantity.quantite_gr} placeholder="Quantité (gr)" />
       </div>
-    {/each}
-    <Button on:click={addIngredient} type="button">Ajouter un ingrédient</Button>
-  
-    <InputField label="Image (URL)" bind:value={$recette.image} />
-  
+    <button type="button" on:click={addIngredient}>Ajouter un ingrédient</button>
+
+    {#if $recette.ingredients.length > 0}
+      <label for="ingredients-list">Ingredients</label>
+      <ul id="ingredients-list">
+      {#each $recette.ingredients as ingredient}
+        <li>{ingredient.nom} - {ingredient.quantite_gr} gr</li>
+      {/each}
+      </ul>
+    {/if}
     <Button type="submit">Créer la recette</Button>
   </form>
   

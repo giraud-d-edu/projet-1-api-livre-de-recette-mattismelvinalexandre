@@ -14,7 +14,7 @@
     {/if}
 		<h2>{recette.nom}</h2>
 		<p class="category">
-			{recette.category.name} ✨ {recette.sous_category.map((sub) => sub).join(', ')}
+			{recette.category} ✨ {recette.sous_category.map((sub) => sub).join(', ')}
 		</p>
 	</header>
 	<section class="description">
@@ -22,15 +22,9 @@
 		<p><strong>⏰ Temps de préparation:</strong> {recette.tps_preparation_min} min</p>
 		<p><strong>🍽️ Temps de cuisson:</strong> {recette.tps_cuisson_min} min</p>
 		<p><strong>🔥 Type de cuisson:</strong> {recette.type_cuisson}</p>
-		<p><strong>🇫🇷 Origine:</strong> {recette.origine}</p>
+		<p><strong>🌍 Origine:</strong> {recette.origine}</p>
 	</section>
 	<footer>
-		<h3>Ingrédients:</h3>
-		<ul>
-			{#each recette.ingredients as ingredient}
-				<li>- {ingredient.quantite_gr} grammes de {ingredient.nom}</li>
-			{/each}
-		</ul>
     <button on:click={() => goto(`/recette/${recette.id}`)}>
       👩‍🍳 Voir la recette
     </button>

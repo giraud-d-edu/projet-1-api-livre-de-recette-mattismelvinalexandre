@@ -4,7 +4,8 @@
   <header>
 	<nav>
 	  <ul>
-		<li><a href="/">Accueil</a></li>
+		<li><a href="/">Recettes</a></li>
+		<li><a href="/ingredient">Ingredients</a></li>
 		<li><a href="/contact">Contact</a></li>
 	  </ul>
 	</nav>

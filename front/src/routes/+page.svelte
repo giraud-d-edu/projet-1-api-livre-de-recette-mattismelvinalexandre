@@ -9,8 +9,6 @@
   onMount(async () => {
     loading = true;
     await getAllRecettes();
-    console.log($recettes);
-    
     loading = false
   });
 </script>

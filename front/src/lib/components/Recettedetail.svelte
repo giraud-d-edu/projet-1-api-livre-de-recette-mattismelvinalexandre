@@ -20,7 +20,7 @@
 				🗑️ Delete
 			</button>
 			<p class="category">
-				{recette.category.name} ✨ {recette.sous_category.map((sub: any) => sub).join(', ')}
+				{recette.category} ✨ {recette.sous_category.map((sub: any) => sub).join(', ')}
 			</p>
 		</div>
 	</header>
@@ -30,7 +30,7 @@
 		<p><strong>⏰ Temps de préparation:</strong> {recette.tps_preparation_min} min</p>
 		<p><strong>🍽️ Temps de cuisson:</strong> {recette.tps_cuisson_min} min</p>
 		<p><strong>🔥 Type de cuisson:</strong> {recette.type_cuisson}</p>
-		<p><strong>🇫🇷 Origine:</strong> {recette.origine}</p>
+		<p><strong>🌍 Origine:</strong> {recette.origine}</p>
 	</section>
 
 	<section class="ingredients">

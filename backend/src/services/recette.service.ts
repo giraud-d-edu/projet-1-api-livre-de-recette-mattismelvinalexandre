@@ -30,27 +30,15 @@ export const searchRecettes = async (search: Search) => {
 export const getAllUniqueInformations = async () => {
   const recettes = await recetteRepository.getAllRecettes();
   const uniqueInformations: UniqueInformations = {
-    category: Array.from(
+    sous_category: Array.from(
       new Set(recettes.flatMap((recette) => recette.sous_category))
     ),
     origine: Array.from(new Set(recettes.map((recette) => recette.origine))),
-    tps_preparation_min: Array.from(
-      new Set(recettes.map((recette) => recette.tps_preparation_min))
-    ),
-    tps_cuisson_min: Array.from(
-      new Set(recettes.map((recette) => recette.tps_cuisson_min))
-    ),
+    tps_max:
+      Math.max(...recettes.map((recette) => recette.tps_preparation_min)) +
+      Math.max(...recettes.map((recette) => recette.tps_cuisson_min)),
     type_cuisson: Array.from(
       new Set(recettes.map((recette) => recette.type_cuisson))
-    ),
-    ingredients: Array.from(
-      new Set(
-        recettes.flatMap((recette) =>
-          recette.ingredients.map((ingredientQuantity) =>
-            ingredientQuantity.ingredient.toString()
-          )
-        )
-      )
     ),
   };
   return uniqueInformations;

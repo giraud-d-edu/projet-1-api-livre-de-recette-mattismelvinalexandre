@@ -4,6 +4,7 @@
     export let value: string = '';
     export let placeholder: string = '';
     export let error: string = '';
+    export let required: boolean = false;
     export let onInput: (event: Event) => void = () => {};
   
     function handleInput(event: Event) {
@@ -21,6 +22,7 @@
       bind:value
       placeholder={placeholder}
       on:input={handleInput}
+      required={required}
     />
     {#if error}
       <p class="error">{error}</p>
