@@ -49,7 +49,6 @@ export const deleteRecette = async (id: string) => {
   if (!result.deletedCount) {
     throw new NotFoundError(`Recette with id ${id} not found`);
   }
-  return result.deletedCount > 0;
 };
 
 export const searchRecettesByNom = async (nom: string) => {

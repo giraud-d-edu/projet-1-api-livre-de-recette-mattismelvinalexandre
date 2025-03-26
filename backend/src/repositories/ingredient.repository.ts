@@ -54,7 +54,6 @@ export const deleteIngredient = async (id: string) => {
   if (!result.deletedCount) {
     throw new NotFoundError(`Ingredient with id ${id} not found`);
   }
-  return result.deletedCount > 0;
 };
 
 export const searchIngredientsByNom = async (nom: string) => {
