@@ -62,11 +62,7 @@ export const searchRecettes = async (
   const search = searchDTOtoModel(
     parseSearchParams(ctx.request.url.searchParams)
   );
-  ctx.response.body = search;
-  // if (!query || !type) {
-  //   throw new BadRequestError("Query and type are required");
-  // }
-  // ctx.response.body = await recetteService.searchRecettes(query, type);
+  ctx.response.body = await recetteService.searchRecettes(search);
 };
 
 export const getAllUniqueInformations = async (

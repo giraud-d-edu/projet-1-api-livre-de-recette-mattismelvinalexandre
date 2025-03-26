@@ -1,8 +1,7 @@
 import * as recetteRepository from "../repositories/recette.repository.ts";
 import Recette from "../models/recette.model.ts";
-import * as ingredientRepository from "../repositories/ingredient.repository.ts";
-import { SearchQueryParamType } from "../controllers/dtos/search.dto.ts";
 import UniqueInformations from "../models/uniqueInformations.model.ts";
+import Search from "../models/search.model.ts";
 
 export const getAllRecettes = async () => {
   return await recetteRepository.getAllRecettes();
@@ -24,9 +23,9 @@ export const deleteRecette = async (id: string) => {
   return await recetteRepository.deleteRecette(id);
 };
 
-export const searchRecettes = async (
-  searchQueryParams: SearchQueryParamType
-) => {};
+export const searchRecettes = async (search: Search) => {
+  return await recetteRepository.searchRecettes(search);
+};
 
 export const getAllUniqueInformations = async () => {
   const recettes = await recetteRepository.getAllRecettes();
@@ -54,7 +53,5 @@ export const getAllUniqueInformations = async () => {
       )
     ),
   };
-  console.log(uniqueInformations);
-
   return uniqueInformations;
 };

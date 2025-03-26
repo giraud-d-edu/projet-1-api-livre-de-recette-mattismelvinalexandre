@@ -2,6 +2,7 @@ import { ObjectId } from "../../deps.ts";
 import NotFoundError from "../errors/NotFound.error.ts";
 import NotModifiedError from "../errors/NotModified.error.ts";
 import Recette from "../models/recette.model.ts";
+import Search from "../models/search.model.ts";
 import { recetteCollection } from "./db/mongo.ts";
 import { RecetteDBOToModel } from "./dbos/recette.dbo.ts";
 
@@ -49,4 +50,27 @@ export const deleteRecette = async (id: string) => {
   if (!result.deletedCount) {
     throw new NotFoundError(`Recette with id ${id} not found`);
   }
+};
+
+export const searchRecettes = async (search: Search) => {
+  const query = {
+    ...(search.nom && { nom: { $regex: search.nom, $options: "i" } }),
+    ...(search.ingredients && { ingredients: { $all: search.ingredients } }),
+    ...(search.category && { category: search.category }),
+    ...(search.sous_category && {
+      sous_category: { $all: search.sous_category },
+    }),
+    ...(search.origine && { origine: search.origine }),
+    ...(search.tps_max && {
+      $expr: {
+        $gt: [
+          search.tps_max,
+          { $add: ["$tps_preparation_min", "$tps_cuisson_min"] },
+        ],
+      },
+    }),
+    ...(search.type_cuisson && { type_cuisson: search.type_cuisson }),
+  };
+  const recettes = await recetteCollection.find(query).toArray();
+  return recettes.map(RecetteDBOToModel);
 };

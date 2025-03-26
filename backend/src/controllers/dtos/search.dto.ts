@@ -1,5 +1,6 @@
 import { z } from "../../../deps.ts";
 import { Category } from "../../models/recette.model.ts";
+import Search from "../../models/search.model.ts";
 
 export const searchQueryParamDto = z.object({
   nom: z.string().max(100).optional(),
@@ -28,14 +29,10 @@ export function parseSearchParams(
   });
   return parsedParams;
 }
-export function searchDTOtoModel(searchQueryParam: SearchQueryParamType) {
+export function searchDTOtoModel(
+  searchQueryParam: SearchQueryParamType
+): Search {
   return {
-    nom: searchQueryParam.nom || null,
-    category: searchQueryParam.category || null,
-    sous_category: searchQueryParam.sous_category || [],
-    origine: searchQueryParam.origine || null,
-    tps_max: searchQueryParam.tps_max || null,
-    type_cuisson: searchQueryParam.type_cuisson || null,
-    ingredients: searchQueryParam.ingredients || [],
+    ...searchQueryParam,
   };
 }
