@@ -15,6 +15,10 @@
         quantite_gr: 0
     });
 
+    let sous_category = writable<string>('');
+
+    
+
     let recette = writable<Recette>({
         nom: '',
         description: '',
@@ -40,6 +44,11 @@
         $recette.ingredients = [...$recette.ingredients, { ...$ingrendent_quantity }];
         ingrendent_quantity.set({ ingredient: '', quantite_gr: 0 });
     }
+
+    function addSousCategory() {
+        $recette.sous_category = [...$recette.sous_category, $sous_category];
+        sous_category.set('');
+    }
 </script>
 
 <form on:submit|preventDefault={submitForm} class="flex flex-col gap-4 bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto">
@@ -52,6 +61,25 @@
         optionLabel="label" 
         optionValue="value" 
     />
+    <div class="flex flex-col gap-2">
+      <div class="flex items-center gap-2">
+          <InputField label="Sous catégorie" bind:value={$sous_category}  />
+      </div>
+      <button type="button" on:click={addSousCategory} class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+          Ajouter une sous catégorie
+      </button>
+  </div>
+
+  {#if $recette.sous_category.length > 0}
+      <div>
+          <label for="ingredients-list" class="font-semibold">Sous catégories</label>
+          <ul id="ingredients-list" class="list-disc pl-5">   
+              {#each $recette.sous_category as sous_category}
+                  <li>{sous_category}</li>
+              {/each}
+          </ul>
+      </div>
+  {/if}
     <InputField label="Temps de préparation (min)" type="number" bind:value={$recette.tps_preparation_min} required />
     <InputField label="Temps de cuisson (min)" type="number" bind:value={$recette.tps_cuisson_min} required />
     <InputField label="Type de cuisson" bind:value={$recette.type_cuisson} required />

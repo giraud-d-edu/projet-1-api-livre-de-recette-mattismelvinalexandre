@@ -15,7 +15,7 @@
 
 <div class="flex justify-between items-center mb-6">
   <h1 class="text-2xl font-bold">Recettes</h1>
-  <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition" on:click={() => goto("/recette/create")}>
+  <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition cursor-pointer" on:click={() => goto("/recette/create")}>
     Ajouter
   </button>
 </div>
@@ -25,7 +25,7 @@
 {:else if $recettes.length === 0}
   <p class="text-gray-500">Aucune recette disponible.</p>
 {:else}
-  <div class="flex flex-wrap gap-5">
+  <div class="flex flex-wrap justify-evenly gap-5">
     {#each $recettes as recette}
       <Card {recette} />
     {/each}
