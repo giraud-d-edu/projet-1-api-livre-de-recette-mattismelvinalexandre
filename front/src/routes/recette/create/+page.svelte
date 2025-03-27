@@ -41,9 +41,78 @@
       console.log($recette);
       ingrendent_quantity.set({ ingredient: '', quantite_gr: 0 });
     }
+
+//   async function post(canvas: HTMLCanvasElement | null, name: string | undefined) {
+//     const ts = new Date().getTime();
+//     canvas?.toBlob(async function(blob) {
+//     const formData = new FormData();
+//     if (blob) {
+//         formData.append('image', blob, name);
+//     } else {
+//         console.error("Blob is null, cannot append to formData");
+//     }
+//     const res = await fetch('http://localhost:8000/upload', {
+//       mode: 'no-cors',
+//       method: 'POST',
+//       body: formData
+//     });
+//   });
+// }
+
+// function loadImage() {
+//   let img: HTMLImageElement;
+
+//   const input = document.getElementById('imgfile') as HTMLInputElement;
+//   if (!input?.files?.[0]) {
+//       write("Please select a file before clicking 'Load'");
+//       return;
+//   }
+
+//   const file = input.files[0];
+//   const fr = new FileReader();
+//   fr.onload = createImage;
+//   fr.readAsDataURL(file);
+
+//   function createImage() {
+//       img = new Image();
+//       img.onload = imageLoaded;
+//       img.src = fr.result as string;
+//   }
+
+//   function imageLoaded() {
+//       const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+//       canvas.width = img.width;
+//       canvas.height = img.height;
+//       const ctx = canvas.getContext("2d");
+//       if (ctx) {
+//         ctx.drawImage(img, 0, 0);
+//       } else {
+//         console.error("Failed to get 2D context for canvas");
+//       }
+//   }
+
+// }
+
+// async function upload() {
+//   const canvas = document.getElementById("canvas") as HTMLCanvasElement | null;
+//   const input = document.getElementById('imgfile') as HTMLInputElement;
+//   if (input?.files?.[0]) {
+//     await post(canvas, input.files[0].name);
+//   } else {
+//     console.error("No file selected for upload");
+//   }
+//   write('File uploaded')
+// }
+
+// function write(msg: string) {
+//   const p = document.createElement('p');
+//   p.innerHTML = msg;
+//   document.body.appendChild(p);
+// }
+
   </script>
   
-  <form on:submit|preventDefault={submitForm} class="form-container">
+  <form onsubmit={(event)=>{event.preventDefault(); submitForm()}} class="form-container">
     <InputField label="Nom de la recette" bind:value={$recette.nom} required />
     <TextAreaField label="Description" bind:value={$recette.description} />
     <SelectField label="Catégorie" bind:value={$recette.category} options={Object.values(Category).map(value => ({ label: value, value }))} optionLabel="label" optionValue="value" />
@@ -66,7 +135,7 @@
         />
         <InputField label="Quantité (gr)" type="number" bind:value={$ingrendent_quantity.quantite_gr} placeholder="Quantité (gr)" />
       </div>
-    <button type="button" on:click={addIngredient}>Ajouter un ingrédient</button>
+    <button type="button" onclick={addIngredient}>Ajouter un ingrédient</button>
 
     {#if $recette.ingredients.length > 0}
       <label for="ingredients-list">Ingredients</label>
@@ -76,6 +145,10 @@
       {/each}
       </ul>
     {/if}
+    
+    <!-- <input type="file" name="file" id="imgfile" onchange={loadImage} />
+    <input type='button' id='btnLoad' value='Upload' onclick={upload} />
+    <canvas id="canvas"></canvas> -->
     <Button type="submit">Créer la recette</Button>
   </form>
   
