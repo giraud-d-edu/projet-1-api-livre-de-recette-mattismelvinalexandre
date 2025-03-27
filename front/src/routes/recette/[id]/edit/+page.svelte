@@ -7,9 +7,9 @@
     import TextAreaField from "$lib/components/TextArea.svelte";
     import SelectField from "$lib/components/SelectField.svelte";
     import Button from "$lib/components/Button.svelte";
-	import { getAllIngredients, ingredients } from "$lib/stores/ingredient";
-	import { Category, type IngredientQuantity } from "$lib/types/recette";
-	import { writable } from "svelte/store";
+    import { getAllIngredients, ingredients } from "$lib/stores/ingredient";
+    import { Category, type IngredientQuantity } from "$lib/types/recette";
+    import { writable } from "svelte/store";
 
     let loading = true;
     let error = "";
@@ -51,9 +51,9 @@
 {#if loading}
     <p>Chargement...</p>
 {:else if error}
-    <p class="error">{error}</p>
+    <p class="text-red-500 font-bold">{error}</p>
 {:else if $recette}
-<form on:submit|preventDefault={submitForm} class="form-container">
+<form on:submit|preventDefault={submitForm} class="flex flex-col gap-4 bg-white p-5 rounded-lg shadow-md">
     <InputField label="Nom de la recette" bind:value={$recette.nom} required />
     <TextAreaField label="Description" bind:value={$recette.description} />
     <SelectField label="Catégorie" bind:value={$recette.category} options={Object.values(Category).map(value => ({ label: value, value }))} optionLabel="label" optionValue="value" />
@@ -62,7 +62,7 @@
     <InputField label="Type de cuisson" bind:value={$recette.type_cuisson} required/>
     <InputField label="Origine" bind:value={$recette.origine} required/>
   
-      <div id="ingredients" class="ingredient-container">
+      <div id="ingredients" class="flex gap-4 items-center">
         <SelectField label="Ingrédient" bind:value={$ingrendent_quantity.ingredient} options={$ingredients} optionLabel="nom" optionValue="id" 
         onChange={(e: Event) => {
           const target = e.target as HTMLSelectElement | null;
@@ -76,11 +76,11 @@
         />
         <InputField label="Quantité (gr)" type="number" bind:value={$ingrendent_quantity.quantite_gr} placeholder="Quantité (gr)" />
       </div>
-    <button type="button" on:click={addIngredient}>Ajouter un ingrédient</button>
+    <button type="button" on:click={addIngredient} class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Ajouter un ingrédient</button>
 
     {#if $recette.ingredients.length > 0}
       <label for="ingredients-list">Ingredients</label>
-      <ul id="ingredients-list">
+      <ul id="ingredients-list" class="list-disc pl-5">
       {#each $recette.ingredients as ingredient}
         <li>{ingredient.nom} - {ingredient.quantite_gr} gr</li>
       {/each}
@@ -91,26 +91,3 @@
 {:else}
     <p>Aucune recette trouvée.</p>
 {/if}
-
-<style>
-    .form-container {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .ingredient-container {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
-
-    .error {
-        color: red;
-        font-weight: bold;
-    }
-</style>
