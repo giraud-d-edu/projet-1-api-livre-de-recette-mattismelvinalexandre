@@ -4,13 +4,11 @@ import Ingredient from "../models/ingredient.model.ts";
 import * as ingredientService from "../services/ingredient.service.ts";
 import { IngredientCandidateDto } from "./dtos/ingredient.dto.ts";
 
-export const getAllIngredients = async (ctx: RouterContext<"/ingredients">) => {
+export const getAllIngredients = async (ctx: RouterContext<"/">) => {
   ctx.response.body = await ingredientService.getAllIngredients();
 };
 
-export const getIngredientById = async (
-  ctx: RouterContext<"/ingredients/:id">
-) => {
+export const getIngredientById = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
@@ -20,7 +18,7 @@ export const getIngredientById = async (
   ctx.response.body = await ingredientService.getIngredientById(id);
 };
 
-export const createIngredient = async (ctx: RouterContext<"/ingredients">) => {
+export const createIngredient = async (ctx: RouterContext<"/">) => {
   const ingredient = IngredientCandidateDto.parse(
     await ctx.request.body.json()
   );
@@ -30,9 +28,7 @@ export const createIngredient = async (ctx: RouterContext<"/ingredients">) => {
   ctx.response.status = 201;
 };
 
-export const updateIngredient = async (
-  ctx: RouterContext<"/ingredients/:id">
-) => {
+export const updateIngredient = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
@@ -46,9 +42,7 @@ export const updateIngredient = async (
   ctx.response.body = await ingredientService.updateIngredient(ingredient);
 };
 
-export const deleteIngredient = async (
-  ctx: RouterContext<"/ingredients/:id">
-) => {
+export const deleteIngredient = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
