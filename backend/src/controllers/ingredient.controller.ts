@@ -12,7 +12,7 @@ export const getIngredientById = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id : Must be a 12-byte hexadecimal string"
+      "Invalid id : Must be a 12-byte hexadecimal string",
     );
   }
   ctx.response.body = await ingredientService.getIngredientById(id);
@@ -20,10 +20,10 @@ export const getIngredientById = async (ctx: RouterContext<"/:id">) => {
 
 export const createIngredient = async (ctx: RouterContext<"/">) => {
   const ingredient = IngredientCandidateDto.parse(
-    await ctx.request.body.json()
+    await ctx.request.body.json(),
   );
   ctx.response.body = await ingredientService.createIngredient(
-    ingredient as Ingredient
+    ingredient as Ingredient,
   );
   ctx.response.status = 201;
 };
@@ -32,11 +32,11 @@ export const updateIngredient = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id : Must be a 12-byte hexadecimal string"
+      "Invalid id : Must be a 12-byte hexadecimal string",
     );
   }
   const ingredient = IngredientCandidateDto.parse(
-    await ctx.request.body.json()
+    await ctx.request.body.json(),
   ) as Ingredient;
   ingredient.id = id;
   ctx.response.body = await ingredientService.updateIngredient(ingredient);
@@ -46,7 +46,7 @@ export const deleteIngredient = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id : Must be a 12-byte hexadecimal string"
+      "Invalid id : Must be a 12-byte hexadecimal string",
     );
   }
   await ingredientService.deleteIngredient(id);

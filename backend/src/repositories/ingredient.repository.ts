@@ -25,7 +25,7 @@ export const getIngredientById = async (id: string) => {
 
 export const createIngredient = async (ingredient: Ingredient) => {
   const result = await ingredientCollection.insertOne(
-    IngredientModelToDBO(ingredient)
+    IngredientModelToDBO(ingredient),
   );
   if (!result.acknowledged) {
     throw new Error("Ingredient not created");
@@ -36,7 +36,7 @@ export const createIngredient = async (ingredient: Ingredient) => {
 export const updateIngredient = async (ingredient: Ingredient) => {
   const result = await ingredientCollection.updateOne(
     { _id: new ObjectId(ingredient.id) },
-    { $set: IngredientModelToDBO(ingredient) }
+    { $set: IngredientModelToDBO(ingredient) },
   );
   if (!result.matchedCount) {
     throw new NotFoundError(`Ingredient with id ${ingredient.id} not found`);

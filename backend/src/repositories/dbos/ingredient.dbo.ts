@@ -1,4 +1,4 @@
-import { WithId, ObjectId } from "../../../deps.ts";
+import { ObjectId, WithId } from "../../../deps.ts";
 import Ingredient from "../../models/ingredient.model.ts";
 
 export interface IngredientDBO {
@@ -7,7 +7,7 @@ export interface IngredientDBO {
 }
 
 export const IngredientDBOToModel: (
-  ingredient: WithId<IngredientDBO>
+  ingredient: WithId<IngredientDBO>,
 ) => Ingredient = (ingredient) => {
   return {
     id: ingredient._id.toString(),
@@ -16,7 +16,7 @@ export const IngredientDBOToModel: (
 };
 
 export const IngredientModelToDBO: (
-  ingredient: Ingredient
+  ingredient: Ingredient,
 ) => WithId<IngredientDBO> = (ingredient) => {
   return {
     _id: new ObjectId(ingredient.id),

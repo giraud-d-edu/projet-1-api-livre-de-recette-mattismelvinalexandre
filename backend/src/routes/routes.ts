@@ -24,7 +24,7 @@ recetteRouter.prefix("/recettes");
 recetteRouter.get("/", recetteController.getAllRecettes);
 recetteRouter.get(
   "/unique-informations",
-  recetteController.getAllUniqueInformations
+  recetteController.getAllUniqueInformations,
 );
 recetteRouter.get("/search", recetteController.searchRecettes);
 recetteRouter.get("/:id", recetteController.getRecetteById);

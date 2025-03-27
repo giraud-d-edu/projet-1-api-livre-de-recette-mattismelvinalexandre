@@ -15,7 +15,7 @@ export const getRecetteById = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id: Must be an 12-byte hexadecimal string"
+      "Invalid id: Must be an 12-byte hexadecimal string",
     );
   }
 
@@ -25,7 +25,7 @@ export const getRecetteById = async (ctx: RouterContext<"/:id">) => {
 export const createRecette = async (ctx: RouterContext<"/">) => {
   const recette = recetteCandidateDto.parse(await ctx.request.body.json());
   ctx.response.body = await recetteService.createRecette(
-    recetteCandidateDTOToModel(recette)
+    recetteCandidateDTOToModel(recette),
   );
   ctx.response.status = 201;
 };
@@ -34,11 +34,11 @@ export const updateRecette = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id: Must be an 12-byte hexadecimal string"
+      "Invalid id: Must be an 12-byte hexadecimal string",
     );
   }
   const recetteCandidate = recetteCandidateDto.parse(
-    await ctx.request.body.json()
+    await ctx.request.body.json(),
   );
   const recette = recetteCandidateDTOToModel(recetteCandidate);
   recette.id = id;
@@ -50,7 +50,7 @@ export const deleteRecette = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
-      "Invalid id: Must be an 12-byte hexadecimal string"
+      "Invalid id: Must be an 12-byte hexadecimal string",
     );
   }
   await recetteService.deleteRecette(id);
@@ -59,13 +59,13 @@ export const deleteRecette = async (ctx: RouterContext<"/:id">) => {
 
 export const searchRecettes = async (ctx: RouterContext<"/search">) => {
   const search = searchDTOtoModel(
-    parseSearchParams(ctx.request.url.searchParams)
+    parseSearchParams(ctx.request.url.searchParams),
   );
   ctx.response.body = await recetteService.searchRecettes(search);
 };
 
 export const getAllUniqueInformations = async (
-  ctx: RouterContext<"/unique-informations">
+  ctx: RouterContext<"/unique-informations">,
 ) => {
   ctx.response.body = await recetteService.getAllUniqueInformations();
 };

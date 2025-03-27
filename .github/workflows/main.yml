@@ -1,0 +1,59 @@
+name: CI/CD Front & Back
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  backend:
+    name: Test du Back (Deno)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Installer Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Vérifier le formatage
+        run: deno fmt --check
+        working-directory: backend
+
+      # Si il y avait des tests unitaires demandés.
+      # - name: Lancer les tests
+      #   run: deno test --allow-read --allow-net
+      #   working-directory: backend
+
+  frontend:
+    name: Build & Test du Front (Svelte)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # On utilise yarn ici car npm pose des problèmes avec les actions GitHub au niveau des dépendances.
+      - name: Installer les dépendances
+        run:  yarn install
+        working-directory: front
+
+      - name: Build du projet
+        run: yarn build
+        working-directory: front
+
+      # Si il y avait des tests unitaires demandés.
+      # - name: Lancer les tests
+      #   run: npm test
+      #   working-directory: front

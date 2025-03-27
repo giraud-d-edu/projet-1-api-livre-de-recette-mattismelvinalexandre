@@ -16,7 +16,7 @@ export const recetteDto = z.object({
     z.object({
       ingredient: z.string().max(100),
       quantite_gr: z.number().max(10000),
-    })
+    }),
   ),
 });
 
@@ -33,14 +33,14 @@ export const recetteCandidateDto = z.object({
     z.object({
       ingredient: z.string().max(100),
       quantite_gr: z.number().max(10000),
-    })
+    }),
   ),
 });
 
 export type RecetteCandidateDtoType = z.infer<typeof recetteCandidateDto>;
 
 export const recetteCandidateDTOToModel = (
-  recetteDto: RecetteCandidateDtoType
+  recetteDto: RecetteCandidateDtoType,
 ): Recette => {
   return {
     nom: recetteDto.nom,
@@ -55,10 +55,10 @@ export const recetteCandidateDTOToModel = (
       ingredient: ObjectId.isValid(ingredient.ingredient)
         ? new ObjectId(ingredient.ingredient)
         : (() => {
-            throw new BadRequestError(
-              "Invalid id : Must be a 12-byte hexadecimal string"
-            );
-          })(),
+          throw new BadRequestError(
+            "Invalid id : Must be a 12-byte hexadecimal string",
+          );
+        })(),
       quantite_gr: ingredient.quantite_gr,
     })),
   } as Recette;

@@ -17,11 +17,11 @@ export const createRecette = async (recette: Recette) => {
   for (const ingredient of recette.ingredients) {
     const ingredientId = ingredient.ingredient;
     const ingredientExists = await ingredientRepository.getIngredientById(
-      ingredientId.toString()
+      ingredientId.toString(),
     );
     if (!ingredientExists) {
       throw new NotFoundError(
-        `Ingredient with id ${ingredientId} does not exist.`
+        `Ingredient with id ${ingredientId} does not exist.`,
       );
     }
   }
@@ -44,14 +44,14 @@ export const getAllUniqueInformations = async () => {
   const recettes = await recetteRepository.getAllRecettes();
   const uniqueInformations: UniqueInformations = {
     sous_category: Array.from(
-      new Set(recettes.flatMap((recette) => recette.sous_category))
+      new Set(recettes.flatMap((recette) => recette.sous_category)),
     ),
     origine: Array.from(new Set(recettes.map((recette) => recette.origine))),
     tps_max:
       Math.max(...recettes.map((recette) => recette.tps_preparation_min)) +
       Math.max(...recettes.map((recette) => recette.tps_cuisson_min)),
     type_cuisson: Array.from(
-      new Set(recettes.map((recette) => recette.type_cuisson))
+      new Set(recettes.map((recette) => recette.type_cuisson)),
     ),
   };
   return uniqueInformations;
