@@ -8,3 +8,13 @@ export async function getAllIngredients() {
 	const data = await IngredientsApi.findAll();
 	ingredients.set(data);
 }
+
+export async function addIngredient(ingredient: string) {
+	const data = await IngredientsApi.create(ingredient);
+	ingredients.update((current) => [...current, data]);
+}
+
+export async function deleteIngredient(id: string) {
+	await IngredientsApi.remove(id);
+	ingredients.update((current) => current.filter((i) => i.id !== id));
+}
