@@ -95,7 +95,7 @@
 	function addIngredient() {
 		if (!$ingredient_quantity.ingredient || $ingredient_quantity.quantite_gr <= 0) return;
 		$recette.ingredients = [...$recette.ingredients, { ...$ingredient_quantity }];
-		ingredient_quantity.set({ ingredient: '', quantite_gr: 0 });
+		ingredient_quantity.set({ ingredient: '', quantite_gr: 1 });
 	}
 
 	function addSousCategory() {
@@ -220,6 +220,11 @@
 					bind:value={$ingredient_quantity.quantite_gr}
 					placeholder="Quantité (gr)"
 				/>
+				{#if $ingredient_quantity.quantite_gr <= 0 || $ingredient_quantity.quantite_gr > 10000}
+					<p class="text-sm text-red-500">
+						La quantité doit être comprise entre 1 et 10000 grammes.
+					</p>
+				{/if}
 			</div>
 		</div>
 		<button
@@ -235,12 +240,9 @@
 		<div>
 			<label for="ingredients-list" class="font-semibold">Ingrédients</label>
 			<ul id="ingredients-list" class="list-disc pl-5">
-				{#each $recette.ingredients as ingredient, index}
+				{#each $recette.ingredients as ingredient}
 					<div class="mt-2 flex items-center gap-2">
 						<li>{ingredient.nom} - {ingredient.quantite_gr} gr</li>
-						{#if $errors[`ingredients[${index}].ingredient`]}
-							<p class="text-sm text-red-500">{$errors[`ingredients[${index}].ingredient`]}</p>
-						{/if}
 						<Button type="button" onClick={() => handleDeleteIngredient(ingredient)}>
 							Supprimer
 						</Button>
@@ -251,12 +253,6 @@
 	{/if}
 	{#if $errors.ingredients}
 		<p class="text-sm text-red-500">{$errors.ingredients}</p>
-	{/if}
-	{#if $errors.quantite_gr}
-		<p class="text-sm text-red-500">{$errors.quantite_gr}</p>
-	{/if}
-	{#if $errors.ingredient}
-		<p class="text-sm text-red-500">{$errors.ingredient}</p>
 	{/if}
 
 	<Button type="submit">Créer la recette</Button>
