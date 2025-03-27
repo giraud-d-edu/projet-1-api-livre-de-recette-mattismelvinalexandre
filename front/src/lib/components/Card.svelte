@@ -10,7 +10,7 @@
     {#if recette.image}
       <img src={recette.image} alt={recette.nom} />
     {:else}
-      <img src="https://placehold.co/300x169?text=Upload an image" alt={recette.nom} />
+		<img src={recette.image || 'https://placehold.co/600x338?text=No+Image'} alt={recette.nom} />
     {/if}
 		<h2>{recette.nom}</h2>
 		<p class="category">
@@ -38,12 +38,20 @@
 		border-radius: 8px;
 		padding: 20px;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-		margin: 10px;
-		width: 300px;
+		margin: 10px ;
+		justify-content: space-around;
+		max-width: 300px;
 	}
 
 	header {
 		margin-bottom: 15px;
+	}
+	
+	img {
+		width: 100%;
+		height: auto;
+		border-radius: 8px;
+		object-fit: cover;
 	}
 
 	h2 {
