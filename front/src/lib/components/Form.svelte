@@ -1,121 +1,105 @@
 <script lang="ts">
-	import Input from "./Input.svelte";
-	import TextArea from "$lib/components/TextArea.svelte";
-
+    import Input from "./Input.svelte";
+    import TextArea from "$lib/components/TextArea.svelte";
   
     let name = '';
     let email = '';
     let message = '';
-  
+    
     let nameError = '';
     let emailError = '';
     let messageError = '';
-  
+    
     let successMessage = '';
     let errorMessage = '';
   
     function validateForm() {
-        let isValid = true;
+      let isValid = true;
   
-        nameError = '';
-        emailError = '';
-        messageError = '';
+      nameError = '';
+      emailError = '';
+      messageError = '';
   
-        if (name.trim() === '') {
-            nameError = 'Le nom est requis.';
-            isValid = false;
-        }
+      if (name.trim() === '') {
+        nameError = 'Le nom est requis.';
+        isValid = false;
+      }
   
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        if (!emailRegex.test(email.trim())) {
-            emailError = 'Veuillez entrer un email valide.';
-            isValid = false;
-        }
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      if (!emailRegex.test(email.trim())) {
+        emailError = 'Veuillez entrer un email valide.';
+        isValid = false;
+      }
   
-        if (message.trim() === '') {
-            messageError = 'Le message ne peut pas être vide.';
-            isValid = false;
-        }
+      if (message.trim() === '') {
+        messageError = 'Le message ne peut pas être vide.';
+        isValid = false;
+      }
   
-        return isValid;
+      return isValid;
     }
   
     async function submitForm(event: Event) {
-        event.preventDefault();
+      event.preventDefault();
   
-        if (!validateForm()) return;
+      if (!validateForm()) return;
   
-        try {
-            // const response = await sendContactForm(name, email, message);
-            // successMessage = response.message;
-            errorMessage = "";
-            name = '';
-            email = '';
-            message = '';
-        } catch (error) {
-            errorMessage = "Erreur lors de l'envoi du message.";
-            successMessage = "";
-        }
+      try {
+        // const response = await sendContactForm(name, email, message);
+        // successMessage = response.message;
+        errorMessage = "";
+        name = '';
+        email = '';
+        message = '';
+      } catch (error) {
+        errorMessage = "Erreur lors de l'envoi du message.";
+        successMessage = "";
+      }
     }
   </script>
   
-  <form on:submit={submitForm}>
+  <form on:submit={submitForm} class="max-w-lg mx-auto p-6 border border-gray-300 rounded-lg">
     <Input
-        label="Nom"
-        bind:value={name}
-        placeholder="Entrez votre nom"
-        error={nameError}
-        on:input={() => nameError = ''}
+      label="Nom"
+      bind:value={name}
+      placeholder="Entrez votre nom"
+      error={nameError}
+      on:input={() => nameError = ''}
+      class="mb-4"
     />
   
     <Input
-        label="Email"
-        type="email"
-        bind:value={email}
-        placeholder="Entrez votre email"
-        error={emailError}
-        on:input={() => emailError = ''}
+      label="Email"
+      type="email"
+      bind:value={email}
+      placeholder="Entrez votre email"
+      error={emailError}
+      on:input={() => emailError = ''}
+      class="mb-4"
     />
   
     <TextArea
-        label="Message"
-        bind:value={message}
-        placeholder="Entrez votre message"
-        error={messageError}
-        on:input={() => messageError = ''}
+      label="Message"
+      bind:value={message}
+      placeholder="Entrez votre message"
+      error={messageError}
+      on:input={() => messageError = ''}
+      class="mb-6"
     />
   
-    <button type="submit">Envoyer</button>
+    <button
+      type="submit"
+      class="w-full py-2 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+    >
+      Envoyer
+    </button>
+    
+    {#if successMessage}
+      <p class="text-green-500 mt-4">{successMessage}</p>
+    {/if}
+  
+    {#if errorMessage}
+      <p class="text-red-500 mt-4">{errorMessage}</p>
+    {/if}
   </form>
-  
-  {#if successMessage}
-    <p style="color: green;">{successMessage}</p>
-  {/if}
-  
-  {#if errorMessage}
-    <p style="color: red;">{errorMessage}</p>
-  {/if}
-  
-  <style>
-    form {
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 2rem;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-    }
-  
-    button {
-        padding: 0.7rem 1.5rem;
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-  
-    button:hover {
-        background-color: #45a049;
-    }
-  </style>
   

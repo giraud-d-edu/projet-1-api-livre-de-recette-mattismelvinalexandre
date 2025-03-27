@@ -12,35 +12,20 @@
     }
 </script>
 
-<div class="select-field">
-    <label>{label}</label>
-    <select bind:value={value} on:change={handleChange}>
+<div class="flex flex-col gap-1">
+    <label class="font-semibold text-gray-700">{label}</label>
+    <select 
+        bind:value={value} 
+        on:change={handleChange}
+        class="p-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none w-full"
+    >
         <option value="" disabled selected>Sélectionner...</option>
         {#each options as option}
             <option value={option[optionValue]}>{option[optionLabel]}</option>
         {/each}
     </select>
+
     {#if error}
-        <p class="error-message">{error}</p>
+        <p class="text-red-500 text-sm mt-1">{error}</p>
     {/if}
 </div>
-
-<style>
-    .select-field {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    select {
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background: white;
-    }
-
-    .error-message {
-        color: red;
-        font-size: 0.875rem;
-    }
-</style>

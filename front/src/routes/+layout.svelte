@@ -1,60 +1,17 @@
 <script>  
 	import "../app.css";
-  </script>
-  
-  <header>
+</script>
+
+<header class="bg-black/30 fixed top-0 left-0 w-full z-10 py-3">
 	<nav>
-	  <ul>
-		<li><a href="/">Recettes</a></li>
-		<li><a href="/ingredient">Ingredients</a></li>
-		<li><a href="/contact">Contact</a></li>
-	  </ul>
+		<ul class="flex justify-center space-x-6">
+			<li><a href="/" class="text-white font-bold hover:underline">Recettes</a></li>
+			<li><a href="/ingredient" class="text-white font-bold hover:underline">Ingrédients</a></li>
+			<li><a href="/contact" class="text-white font-bold hover:underline">Contact</a></li>
+		</ul>
 	</nav>
-  </header>
-  
-  <main>
+</header>
+
+<main class="p-5 mt-12">
 	<slot/>
-  </main>
-  
-  <style>
-	* {
-	  margin: 0;
-	  padding: 0;
-	}
-  
-	header {
-	  background-color: rgba(0, 0, 0, 0.3);
-	  padding: 10px 0;
-	  position: fixed;
-	  top: 0;
-	  left: 0;
-	  width: 100%;
-	  z-index: 10;
-	}
-  
-	nav ul {
-	  display: flex;
-	  list-style-type: none;
-	  justify-content: center;
-	}
-  
-	nav ul li {
-	  margin: 0 15px;
-	}
-  
-	nav ul li a {
-	  color: white;
-	  text-decoration: none;
-	  font-weight: bold;
-	}
-  
-	nav ul li a:hover {
-	  text-decoration: underline;
-	}
-  
-	main {
-	  padding: 20px;
-	  margin-top: 50px;
-	}
-  </style>
-  
+</main>
