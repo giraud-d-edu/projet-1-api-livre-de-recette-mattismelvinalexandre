@@ -15,7 +15,7 @@ export const recetteDto = z.object({
   ingredients: z.array(
     z.object({
       ingredient: z.string().max(100),
-      quantity: z.number().max(10000),
+      quantite_gr: z.number().max(10000),
     })
   ),
 });
@@ -32,7 +32,7 @@ export const recetteCandidateDto = z.object({
   ingredients: z.array(
     z.object({
       ingredient: z.string().max(100),
-      quantity: z.number().max(10000),
+      quantite_gr: z.number().max(10000),
     })
   ),
 });
@@ -56,10 +56,10 @@ export const recetteCandidateDTOToModel = (
         ? new ObjectId(ingredient.ingredient)
         : (() => {
             throw new BadRequestError(
-              "Invalid id : Must be a ObjectId (12-byte hexadecimal string)"
+              "Invalid id : Must be a 12-byte hexadecimal string"
             );
           })(),
-      quantite_gr: ingredient.quantity,
+      quantite_gr: ingredient.quantite_gr,
     })),
   } as Recette;
 };

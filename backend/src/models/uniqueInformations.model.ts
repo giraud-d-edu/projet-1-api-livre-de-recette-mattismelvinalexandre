@@ -1,8 +1,6 @@
 export default interface UniqueInformations {
-  category: string[];
+  sous_category: string[];
   origine: string[];
-  tps_preparation_min: number[];
-  tps_cuisson_min: number[];
+  tps_max: number;
   type_cuisson: string[];
-  ingredients: string[];
 }
