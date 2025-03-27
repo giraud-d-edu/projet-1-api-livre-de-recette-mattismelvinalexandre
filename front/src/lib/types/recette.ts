@@ -31,3 +31,13 @@ export interface UniqueInformations {
 	tps_max: number;
 	type_cuisson: string[];
 }
+
+export interface Search {
+	nom?: string;
+	category?: Category;
+	sous_category?: string[];
+	origine?: string;
+	tps_max?: number;
+	type_cuisson?: string;
+	ingredients?: string[];
+}

@@ -1,4 +1,4 @@
-import type { Recette } from '../types/recette.ts';
+import type { Recette, Search } from '../types/recette.ts';
 
 export const findAll = async () => {
 	const response = await fetch('http://localhost:8000/recettes');
@@ -44,5 +44,12 @@ export const update = async (recette: Recette) => {
 
 export const findAllUniqueInformations = async () => {
 	const response = await fetch('http://localhost:8000/recettes/unique-informations');
+	return await response.json();
+};
+
+export const search = async (search: Search) => {
+	const response = await fetch(
+		`http://localhost:8000/recettes/search?${new URLSearchParams(search as Record<string, string>)}`
+	);
 	return await response.json();
 };
