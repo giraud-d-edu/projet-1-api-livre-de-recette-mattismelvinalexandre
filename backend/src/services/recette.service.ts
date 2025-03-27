@@ -1,7 +1,9 @@
 import * as recetteRepository from "../repositories/recette.repository.ts";
 import Recette from "../models/recette.model.ts";
+import * as ingredientRepository from "../repositories/ingredient.repository.ts";
 import UniqueInformations from "../models/uniqueInformations.model.ts";
 import Search from "../models/search.model.ts";
+import NotFoundError from "../errors/NotFound.error.ts";
 
 export const getAllRecettes = async () => {
   return await recetteRepository.getAllRecettes();
@@ -12,6 +14,17 @@ export const getRecetteById = async (id: string) => {
 };
 
 export const createRecette = async (recette: Recette) => {
+  for (const ingredient of recette.ingredients) {
+    const ingredientId = ingredient.ingredient;
+    const ingredientExists = await ingredientRepository.getIngredientById(
+      ingredientId
+    );
+    if (!ingredientExists) {
+      throw new NotFoundError(
+        `Ingredient with id ${ingredientId} does not exist.`
+      );
+    }
+  }
   return await recetteRepository.createRecette(recette);
 };
 
