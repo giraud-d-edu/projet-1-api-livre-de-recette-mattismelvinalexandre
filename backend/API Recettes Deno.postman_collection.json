@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "951e4ff8-f006-47cb-b835-f3375badd53a",
+		"_postman_id": "5ece9403-ae3a-4a94-9968-ab40bcf65ee9",
 		"name": "API Recettes Deno",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "40330956"
@@ -131,20 +131,50 @@
 					"response": []
 				},
 				{
-					"name": "Rechercher une recette",
+					"name": "Récupérer toutes les informations pour les recettes",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/ingredients/search",
+							"raw": "http://localhost:8000/recettes/unique-informations",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8000",
 							"path": [
-								"ingredients",
+								"recettes",
+								"unique-informations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rechercher une recette",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/recettes/search?nom=cUr&tps_max=50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"recettes",
 								"search"
+							],
+							"query": [
+								{
+									"key": "nom",
+									"value": "cUr"
+								},
+								{
+									"key": "tps_max",
+									"value": "50"
+								}
 							]
 						}
 					},
@@ -186,7 +216,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nom\": \"Curry de Lentilles Corail\",\r\n  \"description\": \"Un plat végétarien épicé et réconfortant, parfait avec du riz basmati.\",\r\n  \"category\": \"Plat\",\r\n  \"sous_category\": [\"Vegan\"],\r\n  \"tps_preparation_min\": 15,\r\n  \"tps_cuisson_min\": 25,\r\n  \"type_cuisson\": \"Mijoté\",\r\n  \"origine\": \"Inde\",\r\n  \"ingredients\": [\r\n    {\r\n      \"ingredient\": \"sqdqsdsd\",\r\n      \"quantity\": 200\r\n    }\r\n  ]\r\n}\r\n",
+							"raw": "{\r\n  \"nom\": \"Curry de Lentilles Corail\",\r\n  \"description\": \"Un plat végétarien épicé et réconfortant, parfait avec du riz basmati.\",\r\n  \"category\": \"Plat\",\r\n  \"sous_category\": [\"Vegan\"],\r\n  \"tps_preparation_min\": 15,\r\n  \"tps_cuisson_min\": 25,\r\n  \"type_cuisson\": \"Mijoté\",\r\n  \"origine\": \"Inde\",\r\n  \"ingredients\": [\r\n    {\r\n      \"ingredient\": \"67c97116061707e4f12116bf\",\r\n      \"quantite_gr\": 200\r\n    }\r\n  ]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -602,6 +632,34 @@
 					"port": "8000",
 					"path": [
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contact",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"fsdf\",\r\n    \"email\":\"alex@d.com\",\r\n    \"message\":\"gjfsjjsdhj\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/contact",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"contact"
 					]
 				}
 			},
