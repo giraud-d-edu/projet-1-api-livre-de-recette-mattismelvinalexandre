@@ -44,6 +44,7 @@ jobs:
         with:
           node-version: 22
 
+      # On utilise yarn ici car npm pose des problèmes avec les actions GitHub au niveau des dépendances.
       - name: Installer les dépendances
         run:  yarn install
         working-directory: front
