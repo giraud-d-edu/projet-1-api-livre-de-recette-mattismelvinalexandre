@@ -14,7 +14,7 @@ export const searchQueryParamDto = z.object({
 
 export type SearchQueryParamType = z.infer<typeof searchQueryParamDto>;
 export function parseSearchParams(
-  searchParams: URLSearchParams
+  searchParams: URLSearchParams,
 ): SearchQueryParamType {
   const rawParams = Object.fromEntries(searchParams.entries());
   const parsedParams = searchQueryParamDto.parse({
@@ -30,7 +30,7 @@ export function parseSearchParams(
   return parsedParams;
 }
 export function searchDTOtoModel(
-  searchQueryParam: SearchQueryParamType
+  searchQueryParam: SearchQueryParamType,
 ): Search {
   return {
     ...searchQueryParam,

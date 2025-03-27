@@ -9,7 +9,7 @@ export interface ContactDBO {
 }
 
 export const ContactModelToDBO: (contact: Contact) => WithId<ContactDBO> = (
-  contact
+  contact,
 ) => {
   return {
     _id: new ObjectId(contact.id),
@@ -20,7 +20,7 @@ export const ContactModelToDBO: (contact: Contact) => WithId<ContactDBO> = (
 };
 
 export const ContactDBOToModel: (contactDBO: WithId<ContactDBO>) => Contact = (
-  contactDBO
+  contactDBO,
 ) => {
   return {
     id: contactDBO._id.toString(),

@@ -17,7 +17,7 @@ export interface RecetteDBO {
 }
 
 export const RecetteDBOToModel: (recette: WithId<RecetteDBO>) => Recette = (
-  recette
+  recette,
 ) => {
   return {
     id: recette._id.toString(),
@@ -34,7 +34,7 @@ export const RecetteDBOToModel: (recette: WithId<RecetteDBO>) => Recette = (
 };
 
 export const RecetteModelToDBO: (recette: Recette) => WithId<RecetteDBO> = (
-  recette
+  recette,
 ) => {
   return {
     _id: new ObjectId(recette.id),

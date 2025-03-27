@@ -1,8 +1,8 @@
 import { Application, oakCors } from "./deps.ts";
 import { errorHandler } from "./src/middleware/errors.ts";
 import {
-  ingredientRouter,
   globalRouter,
+  ingredientRouter,
   recetteRouter,
 } from "./src/routes/routes.ts";
 const app = new Application();
@@ -10,7 +10,7 @@ const app = new Application();
 app.use(
   oakCors({
     origin: "*",
-  })
+  }),
 );
 
 app.use(errorHandler);

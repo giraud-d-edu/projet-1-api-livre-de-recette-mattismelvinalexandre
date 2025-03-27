@@ -2,3 +2,4 @@
 /*.env
 deno.json
 deno.lock
+node_modules
