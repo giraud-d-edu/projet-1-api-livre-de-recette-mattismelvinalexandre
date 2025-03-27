@@ -50,6 +50,7 @@ export async function deleteRecette(id: string) {
 export async function createRecette(newRecette: Recette) {
 	const data = await RecettesApi.create(newRecette);
 	recettes.update((values) => [...values, data]);
+	return data.id;
 }
 
 export async function updateRecette(updatedRecette: Recette) {

@@ -30,13 +30,13 @@
 		<p><strong>🔥 Cuisson:</strong> {recette.type_cuisson}</p>
 		<p><strong>🌍 Origine:</strong> {recette.origine}</p>
 	</section>
-
-	<footer class="mt-6">
-		<button 
-			on:click={() => goto(`/recette/${recette.id}`)} 
-			class="bg-gray-200 text-gray-800 border border-gray-300 rounded px-4 py-2 hover:bg-gray-300 transition-all"
-		>
-			👩‍🍳 Voir la recette
-		</button>
+  
+	<footer class="mt-6 justify-center flex">
+	  <button 
+		on:click={() => goto(`/recette/${recette.id}`)} 
+		class="bg-gray-200 text-gray-800 border border-gray-300 rounded px-4 py-2 hover:bg-gray-300 transition-all cursor-pointer"
+	  >
+		👩‍🍳 Voir la recette
+	  </button>
 	</footer>
 </article>

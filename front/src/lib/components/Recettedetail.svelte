@@ -23,20 +23,20 @@
 		</p>
 		<div class="mt-4 space-x-2">
 		  <button 
-			on:click={() => goto('/')} 
-			class="bg-gray-200 border border-gray-300 rounded px-4 py-2 hover:bg-gray-300"
+			onclick={() => goto('/')} 
+			class="bg-gray-200 border border-gray-300 rounded px-4 py-2 hover:bg-gray-300 cursor-pointer"
 		  >
 			🔙 Retour
 		  </button>
 		  <button 
-			on:click={() => goto(`/recette/${recette.id}/edit`)} 
-			class="bg-blue-500 text-white border border-blue-600 rounded px-4 py-2 hover:bg-blue-600"
+			onclick={() => goto(`/recette/${recette.id}/edit`)} 
+			class="bg-blue-500 text-white border border-blue-600 rounded px-4 py-2 hover:bg-blue-600 cursor-pointer"
 		  >
 			✏️ Modifier
 		  </button>
 		  <button 
-			on:click={() => { deleteRecette(recette.id).then(() => goto('/')); }} 
-			class="bg-red-500 text-white border border-red-600 rounded px-4 py-2 hover:bg-red-600"
+			onclick={() => { deleteRecette(recette.id).then(() => goto('/')); }} 
+			class="bg-red-500 text-white border border-red-600 rounded px-4 py-2 hover:bg-red-600 cursor-pointer"
 		  >
 			🗑️ Supprimer
 		  </button>
@@ -56,7 +56,7 @@
 	  <h2 class="text-lg font-semibold mb-4">🛒 Ingrédients</h2>
 	  <ul class="list-none p-0">
 		{#each recette.ingredients as ingredient}
-		  <li class="text-sm mb-1">{ingredient.quantite_gr}g de {ingredient.nom}</li>
+		  <li class="text-sm mb-1">- {ingredient.quantite_gr}g de {ingredient.nom}</li>
 		{/each}
 	  </ul>
 	</section>
