@@ -8,28 +8,11 @@
     }
 </script>
 
-<button class="styled-button" type={type} on:click={handleClick} disabled={disabled}>
+<button 
+    class="bg-blue-500 text-white border-none rounded-md cursor-pointer px-4 py-2 text-base transition-all ease-in-out duration-300 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed" 
+    type={type} 
+    on:click={handleClick} 
+    disabled={disabled}
+>
     <slot></slot>
 </button>
-
-<style>
-    .styled-button {
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        padding: 10px 15px;
-        font-size: 16px;
-        transition: background 0.3s ease;
-    }
-
-    .styled-button:hover {
-        background-color: #0056b3;
-    }
-
-    .styled-button:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-    }
-</style>
