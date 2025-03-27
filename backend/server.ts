@@ -2,7 +2,7 @@ import { Application, oakCors } from "./deps.ts";
 import { errorHandler } from "./src/middleware/errors.ts";
 import {
   ingredientRouter,
-  pingRouter,
+  globalRouter,
   recetteRouter,
 } from "./src/routes/routes.ts";
 const app = new Application();
@@ -15,8 +15,8 @@ app.use(
 
 app.use(errorHandler);
 
-app.use(pingRouter.routes());
-app.use(pingRouter.allowedMethods());
+app.use(globalRouter.routes());
+app.use(globalRouter.allowedMethods());
 app.use(ingredientRouter.routes());
 app.use(ingredientRouter.allowedMethods());
 app.use(recetteRouter.routes());

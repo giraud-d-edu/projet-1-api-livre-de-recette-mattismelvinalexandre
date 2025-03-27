@@ -1,4 +1,5 @@
 import { MongoClient } from "../../../deps.ts";
+import { ContactDBO } from "../dbos/contact.dbo.ts";
 import { IngredientDBO } from "../dbos/ingredient.dbo.ts";
 import { RecetteDBO } from "../dbos/recette.dbo.ts";
 
@@ -30,3 +31,4 @@ const db = client.db(MONGO_DB);
 
 export const ingredientCollection = db.collection<IngredientDBO>("ingredients");
 export const recetteCollection = db.collection<RecetteDBO>("recettes");
+export const contactCollection = db.collection<ContactDBO>("contact");

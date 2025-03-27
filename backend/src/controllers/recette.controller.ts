@@ -7,11 +7,11 @@ import {
 } from "./dtos/recette.dto.ts";
 import { parseSearchParams, searchDTOtoModel } from "./dtos/search.dto.ts";
 
-export const getAllRecettes = async (ctx: RouterContext<"/recettes">) => {
+export const getAllRecettes = async (ctx: RouterContext<"/">) => {
   ctx.response.body = await recetteService.getAllRecettes();
 };
 
-export const getRecetteById = async (ctx: RouterContext<"/recettes/:id">) => {
+export const getRecetteById = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
@@ -22,14 +22,15 @@ export const getRecetteById = async (ctx: RouterContext<"/recettes/:id">) => {
   ctx.response.body = await recetteService.getRecetteById(id);
 };
 
-export const createRecette = async (ctx: RouterContext<"/recettes">) => {
+export const createRecette = async (ctx: RouterContext<"/">) => {
   const recette = recetteCandidateDto.parse(await ctx.request.body.json());
   ctx.response.body = await recetteService.createRecette(
     recetteCandidateDTOToModel(recette)
   );
+  ctx.response.status = 201;
 };
 
-export const updateRecette = async (ctx: RouterContext<"/recettes/:id">) => {
+export const updateRecette = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
@@ -45,7 +46,7 @@ export const updateRecette = async (ctx: RouterContext<"/recettes/:id">) => {
   ctx.response.body = await recetteService.updateRecette(recette);
 };
 
-export const deleteRecette = async (ctx: RouterContext<"/recettes/:id">) => {
+export const deleteRecette = async (ctx: RouterContext<"/:id">) => {
   const id = ctx.params.id;
   if (!ObjectId.isValid(id)) {
     throw new BadRequestError(
@@ -56,9 +57,7 @@ export const deleteRecette = async (ctx: RouterContext<"/recettes/:id">) => {
   ctx.response.body = "Recette deleted";
 };
 
-export const searchRecettes = async (
-  ctx: RouterContext<"/recettes/search">
-) => {
+export const searchRecettes = async (ctx: RouterContext<"/search">) => {
   const search = searchDTOtoModel(
     parseSearchParams(ctx.request.url.searchParams)
   );
@@ -66,7 +65,7 @@ export const searchRecettes = async (
 };
 
 export const getAllUniqueInformations = async (
-  ctx: RouterContext<"/recettes/unique-informations">
+  ctx: RouterContext<"/unique-informations">
 ) => {
   ctx.response.body = await recetteService.getAllUniqueInformations();
 };

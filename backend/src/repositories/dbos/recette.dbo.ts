@@ -2,14 +2,13 @@ import { ObjectId, WithId } from "../../../deps.ts";
 import Recette, {
   Category,
   IngredientQuantity,
-  SousCategory,
 } from "../../models/recette.model.ts";
 
 export interface RecetteDBO {
   nom: string;
   description: string;
   category: Category;
-  sous_category: SousCategory[];
+  sous_category: string[];
   tps_preparation_min: number;
   tps_cuisson_min: number;
   type_cuisson: string;
