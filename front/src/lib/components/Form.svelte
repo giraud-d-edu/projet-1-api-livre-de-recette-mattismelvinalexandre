@@ -65,7 +65,6 @@
       placeholder="Entrez votre nom"
       error={nameError}
       on:input={() => nameError = ''}
-      class="mb-4"
     />
   
     <Input
@@ -75,7 +74,6 @@
       placeholder="Entrez votre email"
       error={emailError}
       on:input={() => emailError = ''}
-      class="mb-4"
     />
   
     <TextArea
@@ -84,7 +82,6 @@
       placeholder="Entrez votre message"
       error={messageError}
       on:input={() => messageError = ''}
-      class="mb-6"
     />
   
     <button
