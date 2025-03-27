@@ -12,7 +12,7 @@
 
 	let ingredient_quantity = writable<IngredientQuantity>({
 		ingredient: '',
-		quantite_gr: 0
+		quantite_gr: 1
 	});
 
 	let sous_category = writable<string>('');

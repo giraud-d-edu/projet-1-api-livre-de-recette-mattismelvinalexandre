@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 import * as RecettesApi from '../api/recette.ts';
-import type { IngredientQuantity, Recette, UniqueInformations } from '../types/recette.ts';
+import type { IngredientQuantity, Recette, Search, UniqueInformations } from '../types/recette.ts';
 import * as IngredientsApi from '../api/ingredient.ts';
 
 export const recettes = writable<Recette[]>([]);
@@ -61,4 +61,20 @@ export async function updateRecette(updatedRecette: Recette) {
 export async function getAllUniqueInformations() {
 	const data = await RecettesApi.findAllUniqueInformations();
 	uniqueInformations.set(data);
+}
+
+export async function searchRecettes(search: Search) {
+	const data = await RecettesApi.search(search);
+	for (const recette of data) {
+		recette.ingredients = await Promise.all(
+			recette.ingredients.map(async (ingredient: IngredientQuantity) => {
+				const ingredientData = await IngredientsApi.findOne(ingredient.ingredient as string);
+				return {
+					...ingredient,
+					nom: ingredientData.nom
+				};
+			})
+		);
+	}
+	recettes.set(data);
 }

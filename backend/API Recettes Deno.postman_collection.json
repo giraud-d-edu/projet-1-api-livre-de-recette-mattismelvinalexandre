@@ -1,648 +1,706 @@
 {
-  "info": {
-    "_postman_id": "951e4ff8-f006-47cb-b835-f3375badd53a",
-    "name": "API Recettes Deno",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "40330956"
-  },
-  "item": [
-    {
-      "name": "Recette",
-      "item": [
-        {
-          "name": "Récupérer toutes les recettes",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response body is an array\", function () {",
-                  "    pm.expect(pm.response.json()).to.be.an('array');",
-                  "    pm.expect(pm.response.json()).to.have.length.above(0);",
-                  "});",
-                  "",
-                  "pm.test(\"Each object in the array has the required properties and types\", function () {",
-                  "    pm.response.json().forEach(function (recipe) {",
-                  "        pm.expect(recipe).to.have.property('id').that.is.a('string');",
-                  "        pm.expect(recipe).to.have.property('nom').that.is.a('string');",
-                  "        pm.expect(recipe).to.have.property('description').that.is.a('string');",
-                  "        pm.expect(recipe).to.have.property('category').that.is.a('string');",
-                  "        pm.expect(recipe).to.have.property('sous_category').that.is.an('array');",
-                  "        pm.expect(recipe.sous_category.every(function(item) {",
-                  "            return typeof item === 'string';",
-                  "        })).to.be.true;",
-                  "        pm.expect(recipe).to.have.property('tps_preparation_min').that.is.a('number');",
-                  "        pm.expect(recipe).to.have.property('tps_cuisson_min').that.is.a('number');",
-                  "        pm.expect(recipe).to.have.property('type_cuisson').that.is.a('string');",
-                  "        pm.expect(recipe).to.have.property('origine').that.is.a('string');",
-                  "        pm.expect(recipe).to.have.property('ingredients').that.is.an('array');",
-                  "        if (recipe.ingredients.length > 0) {",
-                  "            recipe.ingredients.forEach(function(ingredient) {",
-                  "                pm.expect(ingredient).to.have.property('ingredient').that.is.a('string');",
-                  "                pm.expect(ingredient).to.have.property('quantity').that.is.a('number');",
-                  "            });",
-                  "        }",
-                  "    });",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8000/recettes",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "recettes"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Récupérer une recette par ID",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code checks\", function () {\r",
-                  "    switch (pm.response.code) {\r",
-                  "    case 200:\r",
-                  "        pm.expect(pm.response.json()).to.be.an('object');\r",
-                  "        pm.expect(pm.response.json()).to.have.property('id');\r",
-                  "        pm.expect(pm.response.json()).to.have.property('nom');\r",
-                  "        pm.expect(pm.response.json()).to.have.property('description');\r",
-                  "        pm.expect(pm.response.json()).to.have.property('category');\r",
-                  "        pm.expect(pm.response.json()).to.have.property('sous_category');\r",
-                  "        pm.expect(pm.response.json()).to.have.property('tps_preparation_min');\r",
-                  "        pm.expect(pm.response.json()).to.have.property('tps_cuisson_min');\r",
-                  "        pm.expect(pm.response.json()).to.have.property('type_cuisson');\r",
-                  "        pm.expect(pm.response.json()).to.have.property('origine');\r",
-                  "        pm.expect(pm.response.json()).to.have.property('ingredients');\r",
-                  "        pm.expect(pm.response.json().ingredients).to.be.an('array');\r",
-                  "        pm.expect(pm.response.json().ingredients).to.have.length.above(0);\r",
-                  "        break;\r",
-                  "    case 400:\r",
-                  "        pm.expect(pm.response.text()).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");\r",
-                  "        break;\r",
-                  "    case 404:\r",
-                  "        const ingredientId = pm.variables.get(\"ingredientID\");\r",
-                  "        pm.expect(pm.response.text()).to.include(`Ingredient with id ${ingredientId} not found`)\r",
-                  "    }\r",
-                  "});\r",
-                  "\r",
-                  "\r",
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8000/recettes/{{recetteID}}",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "recettes",
-                "{{recetteID}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Rechercher une recette",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8000/ingredients/search",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "ingredients",
-                "search"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Ajouter une recette",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Switch case for each status code\", function () {\r",
-                  "    switch (pm.response.code) {\r",
-                  "        case 200:\r",
-                  "            pm.expect(pm.response.text()).to.eql(\"Recette created\");\r",
-                  "            break;\r",
-                  "        case 400:\r",
-                  "            if (pm.response.text()) {\r",
-                  "                pm.expect(pm.response.text()).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");\r",
-                  "            }\r",
-                  "            pm.expect(pm.response.json()).to.be.an(\"array\");\r",
-                  "            res.forEach((err) => {\r",
-                  "                pm.expect(err).to.be.an(\"object\");\r",
-                  "                pm.expect(err).to.have.property('path').that.is.an(\"array\").with.lengthOf.at.least(1);\r",
-                  "                pm.expect(err).to.have.property('message').that.is.a(\"string\");\r",
-                  "            });\r",
-                  "    }\r",
-                  "});\r",
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"nom\": \"Curry de Lentilles Corail\",\r\n  \"description\": \"Un plat végétarien épicé et réconfortant, parfait avec du riz basmati.\",\r\n  \"category\": \"Plat\",\r\n  \"sous_category\": [\"Vegan\"],\r\n  \"tps_preparation_min\": 15,\r\n  \"tps_cuisson_min\": 25,\r\n  \"type_cuisson\": \"Mijoté\",\r\n  \"origine\": \"Inde\",\r\n  \"ingredients\": [\r\n    {\r\n      \"ingredient\": \"sqdqsdsd\",\r\n      \"quantity\": 200\r\n    }\r\n  ]\r\n}\r\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/recettes",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "recettes"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Modifier une recette",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Switch case for each status code\", function () {\r",
-                  "    let res;\r",
-                  "    let resText = pm.response.text();\r",
-                  "    let isJson = false;\r",
-                  "\r",
-                  "    try {\r",
-                  "        res = pm.response.json();\r",
-                  "        isJson = true;\r",
-                  "    } catch (e) {\r",
-                  "        res = resText;\r",
-                  "    }\r",
-                  "\r",
-                  "    switch (pm.response.code) {\r",
-                  "        case 200:\r",
-                  "            pm.expect(resText).to.eql(\"Recette updated\");\r",
-                  "            break;\r",
-                  "        case 400:\r",
-                  "            if (!isJson) {\r",
-                  "                pm.expect(res).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");\r",
-                  "            } else {\r",
-                  "                pm.expect(res).to.be.an(\"array\");\r",
-                  "                res.forEach((err) => {\r",
-                  "                    pm.expect(err).to.be.an(\"object\");\r",
-                  "                    pm.expect(err).to.have.property('path').that.is.an(\"array\").with.lengthOf.at.least(1);\r",
-                  "                    pm.expect(err).to.have.property('message').that.is.a(\"string\");\r",
-                  "                });\r",
-                  "            }\r",
-                  "            break;\r",
-                  "    }\r",
-                  "});\r",
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"nom\": \"Curry de Lentilles Corail\",\r\n  \"description\": \"Un plat végétarien épicé et réconfortant, parfait avec du riz basmati.\",\r\n  \"category\": \"Plat\",\r\n  \"sous_category\": [\"Vegan\", \"ss\"],\r\n  \"tps_preparation_min\": 15,\r\n  \"tps_cuisson_min\": 25,\r\n  \"type_cuisson\": \"Mijoté\",\r\n  \"origine\": \"Inde\",\r\n  \"ingredients\": [\r\n    {\r\n      \"ingredient\": \"67c97c095c1d2115f242f2e2\",\r\n      \"quantity\": 200\r\n    }\r\n  ]\r\n}\r\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/recettes/{{recetteID}}",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "recettes",
-                "{{recetteID}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Supprimer une recette",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code checks\", function () {\r",
-                  "    switch (pm.response.code) {\r",
-                  "    case 200:\r",
-                  "        pm.expect(pm.response.text()).to.eql(\"Recette deleted\");\r",
-                  "        break;\r",
-                  "    case 400:\r",
-                  "        pm.expect(pm.response.text()).to.eql(\"Invalid id: Must be an ObjectId (12-byte hexadecimal string)\");\r",
-                  "        break;\r",
-                  "    case 404:\r",
-                  "     const ingredientId = pm.variables.get(\"ingredientID\");\r",
-                  "        pm.expect(pm.response.text()).to.eql(`Recette with id ${ingredientId} not found`);\r",
-                  "    }\r",
-                  "});\r",
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8000/recettes/{{recetteID}}",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "recettes",
-                "{{recetteID}}"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Ingredients",
-      "item": [
-        {
-          "name": "Récupérer tous les ingrédients",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response body is an array\", function () {",
-                  "    pm.expect(pm.response.json()).to.be.an('array');",
-                  "    pm.expect(pm.response.json()).to.have.length.above(0);",
-                  "});",
-                  "",
-                  "pm.test(\"Each object in the array has the required properties\", function () {",
-                  "    pm.response.json().forEach(function (ingredient) {",
-                  "        pm.expect(ingredient).to.have.property('id').and.to.be.a(\"string\")",
-                  "        pm.expect(ingredient).to.have.property('nom').and.to.be.a(\"string\")",
-                  "    });",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8000/ingredients",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "ingredients"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Récupérer un ingrédient par ID",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code checks\", function () {",
-                  "    switch (pm.response.code) {",
-                  "    case 200:",
-                  "        pm.expect(pm.response.json()).to.be.an('object');",
-                  "        pm.expect(pm.response.json()).to.have.property('id');",
-                  "        pm.expect(pm.response.json()).to.have.property('nom');",
-                  "        pm.expect(pm.response.json().id).to.be.a('string');",
-                  "        pm.expect(pm.response.json().nom).to.be.a('string');",
-                  "        break;",
-                  "    case 400:",
-                  "        pm.expect(pm.response.text()).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");",
-                  "        break;",
-                  "    case 404:",
-                  "        const ingredientId = pm.variables.get(\"ingredientID\");",
-                  "        pm.expect(pm.response.text()).to.include(`Ingredient with id ${ingredientId} not found`)",
-                  "    }",
-                  "});",
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "exec": [
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8000/ingredients/{{ingredientID}}",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "ingredients",
-                "{{ingredientID}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Ajouter un ingrédient",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Ingredient full test cases\", function () {",
-                  "    switch (pm.response.code) {",
-                  "    case 200 :",
-                  "        const res200 = pm.response.text()",
-                  "        pm.expect(res200).to.eql(\"Ingredient created\");",
-                  "    break;",
-                  "    case 400 :",
-                  "        const res400 = pm.response.json();",
-                  "        pm.expect(res400).to.be.an('array');",
-                  "        pm.expect(res400).to.have.length.above(0);",
-                  "        res400.forEach((ingredient) => {",
-                  "            pm.expect(ingredient).to.have.property(\"path\").that.includes(\"nom\");",
-                  "            pm.expect(ingredient).to.have.property(\"message\");",
-                  "        })",
-                  "    }",
-                  "});",
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"nom\":\"Pomme\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/ingredients",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "ingredients"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Modifier un ingrédient",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code checks\", function () {\r",
-                  "    switch (pm.response.code) {\r",
-                  "    case 200:\r",
-                  "        pm.expect(pm.response.text()).to.eql(\"Ingredient updated\")\r",
-                  "        break;\r",
-                  "    case 400:\r",
-                  "        pm.expect(pm.response.text()).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");\r",
-                  "        break;\r",
-                  "    case 404:\r",
-                  "        pm.expect(pm.response.text()).to.eql(`Ingredient not updated`)\r",
-                  "    }\r",
-                  "});\r",
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"nom\": \"Panamaa\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/ingredients/{{ingredientID}}",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "ingredients",
-                "{{ingredientID}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Supprimer un ingrédient",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code checks\", function () {\r",
-                  "    switch (pm.response.code) {\r",
-                  "    case 200:\r",
-                  "        pm.expect(pm.response.text()).to.eql(\"Ingredient deleted\");\r",
-                  "        break;\r",
-                  "    case 400:\r",
-                  "        pm.expect(pm.response.text()).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");\r",
-                  "        break;\r",
-                  "    case 404:\r",
-                  "     const ingredientId = pm.variables.get(\"ingredientID\");\r",
-                  "        pm.expect(pm.response.text()).to.eql(`Ingredient with id ${ingredientId} not found`);\r",
-                  "    }\r",
-                  "});\r",
-                  ""
-                ],
-                "type": "text/javascript",
-                "packages": {}
-              }
-            }
-          ],
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:8000/ingredients/{{ingredientID}}",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "ingredients",
-                "{{ingredientID}}"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Ping",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:8000/",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8000",
-          "path": [
-            ""
-          ]
-        }
-      },
-      "response": []
-    }
-  ],
-  "auth": {
-    "type": "basic",
-    "basic": [
-      {
-        "key": "password",
-        "value": "test",
-        "type": "string"
-      },
-      {
-        "key": "username",
-        "value": "admin",
-        "type": "string"
-      }
-    ]
-  },
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "exec": [
-          ""
-        ]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "exec": [
-          ""
-        ]
-      }
-    }
-  ]
+	"info": {
+		"_postman_id": "5ece9403-ae3a-4a94-9968-ab40bcf65ee9",
+		"name": "API Recettes Deno",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40330956"
+	},
+	"item": [
+		{
+			"name": "Recette",
+			"item": [
+				{
+					"name": "Récupérer toutes les recettes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response body is an array\", function () {",
+									"    pm.expect(pm.response.json()).to.be.an('array');",
+									"    pm.expect(pm.response.json()).to.have.length.above(0);",
+									"});",
+									"",
+									"pm.test(\"Each object in the array has the required properties and types\", function () {",
+									"    pm.response.json().forEach(function (recipe) {",
+									"        pm.expect(recipe).to.have.property('id').that.is.a('string');",
+									"        pm.expect(recipe).to.have.property('nom').that.is.a('string');",
+									"        pm.expect(recipe).to.have.property('description').that.is.a('string');",
+									"        pm.expect(recipe).to.have.property('category').that.is.a('string');",
+									"        pm.expect(recipe).to.have.property('sous_category').that.is.an('array');",
+									"        pm.expect(recipe.sous_category.every(function(item) {",
+									"            return typeof item === 'string';",
+									"        })).to.be.true;",
+									"        pm.expect(recipe).to.have.property('tps_preparation_min').that.is.a('number');",
+									"        pm.expect(recipe).to.have.property('tps_cuisson_min').that.is.a('number');",
+									"        pm.expect(recipe).to.have.property('type_cuisson').that.is.a('string');",
+									"        pm.expect(recipe).to.have.property('origine').that.is.a('string');",
+									"        pm.expect(recipe).to.have.property('ingredients').that.is.an('array');",
+									"        if (recipe.ingredients.length > 0) {",
+									"            recipe.ingredients.forEach(function(ingredient) {",
+									"                pm.expect(ingredient).to.have.property('ingredient').that.is.a('string');",
+									"                pm.expect(ingredient).to.have.property('quantity').that.is.a('number');",
+									"            });",
+									"        }",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/recettes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"recettes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer une recette par ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code checks\", function () {\r",
+									"    switch (pm.response.code) {\r",
+									"    case 200:\r",
+									"        pm.expect(pm.response.json()).to.be.an('object');\r",
+									"        pm.expect(pm.response.json()).to.have.property('id');\r",
+									"        pm.expect(pm.response.json()).to.have.property('nom');\r",
+									"        pm.expect(pm.response.json()).to.have.property('description');\r",
+									"        pm.expect(pm.response.json()).to.have.property('category');\r",
+									"        pm.expect(pm.response.json()).to.have.property('sous_category');\r",
+									"        pm.expect(pm.response.json()).to.have.property('tps_preparation_min');\r",
+									"        pm.expect(pm.response.json()).to.have.property('tps_cuisson_min');\r",
+									"        pm.expect(pm.response.json()).to.have.property('type_cuisson');\r",
+									"        pm.expect(pm.response.json()).to.have.property('origine');\r",
+									"        pm.expect(pm.response.json()).to.have.property('ingredients');\r",
+									"        pm.expect(pm.response.json().ingredients).to.be.an('array');\r",
+									"        pm.expect(pm.response.json().ingredients).to.have.length.above(0);\r",
+									"        break;\r",
+									"    case 400:\r",
+									"        pm.expect(pm.response.text()).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");\r",
+									"        break;\r",
+									"    case 404:\r",
+									"        const ingredientId = pm.variables.get(\"ingredientID\");\r",
+									"        pm.expect(pm.response.text()).to.include(`Ingredient with id ${ingredientId} not found`)\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/recettes/{{recetteID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"recettes",
+								"{{recetteID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer toutes les informations pour les recettes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/recettes/unique-informations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"recettes",
+								"unique-informations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rechercher une recette",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/recettes/search?nom=cUr&tps_max=50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"recettes",
+								"search"
+							],
+							"query": [
+								{
+									"key": "nom",
+									"value": "cUr"
+								},
+								{
+									"key": "tps_max",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ajouter une recette",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Switch case for each status code\", function () {\r",
+									"    switch (pm.response.code) {\r",
+									"        case 200:\r",
+									"            pm.expect(pm.response.text()).to.eql(\"Recette created\");\r",
+									"            break;\r",
+									"        case 400:\r",
+									"            if (pm.response.text()) {\r",
+									"                pm.expect(pm.response.text()).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");\r",
+									"            }\r",
+									"            pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"            res.forEach((err) => {\r",
+									"                pm.expect(err).to.be.an(\"object\");\r",
+									"                pm.expect(err).to.have.property('path').that.is.an(\"array\").with.lengthOf.at.least(1);\r",
+									"                pm.expect(err).to.have.property('message').that.is.a(\"string\");\r",
+									"            });\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nom\": \"Curry de Lentilles Corail\",\r\n  \"description\": \"Un plat végétarien épicé et réconfortant, parfait avec du riz basmati.\",\r\n  \"category\": \"Plat\",\r\n  \"sous_category\": [\"Vegan\"],\r\n  \"tps_preparation_min\": 15,\r\n  \"tps_cuisson_min\": 25,\r\n  \"type_cuisson\": \"Mijoté\",\r\n  \"origine\": \"Inde\",\r\n  \"ingredients\": [\r\n    {\r\n      \"ingredient\": \"67c97116061707e4f12116bf\",\r\n      \"quantite_gr\": 200\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/recettes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"recettes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier une recette",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Switch case for each status code\", function () {\r",
+									"    let res;\r",
+									"    let resText = pm.response.text();\r",
+									"    let isJson = false;\r",
+									"\r",
+									"    try {\r",
+									"        res = pm.response.json();\r",
+									"        isJson = true;\r",
+									"    } catch (e) {\r",
+									"        res = resText;\r",
+									"    }\r",
+									"\r",
+									"    switch (pm.response.code) {\r",
+									"        case 200:\r",
+									"            pm.expect(resText).to.eql(\"Recette updated\");\r",
+									"            break;\r",
+									"        case 400:\r",
+									"            if (!isJson) {\r",
+									"                pm.expect(res).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");\r",
+									"            } else {\r",
+									"                pm.expect(res).to.be.an(\"array\");\r",
+									"                res.forEach((err) => {\r",
+									"                    pm.expect(err).to.be.an(\"object\");\r",
+									"                    pm.expect(err).to.have.property('path').that.is.an(\"array\").with.lengthOf.at.least(1);\r",
+									"                    pm.expect(err).to.have.property('message').that.is.a(\"string\");\r",
+									"                });\r",
+									"            }\r",
+									"            break;\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nom\": \"Curry de Lentilles Corail\",\r\n  \"description\": \"Un plat végétarien épicé et réconfortant, parfait avec du riz basmati.\",\r\n  \"category\": \"Plat\",\r\n  \"sous_category\": [\"Vegan\", \"ss\"],\r\n  \"tps_preparation_min\": 15,\r\n  \"tps_cuisson_min\": 25,\r\n  \"type_cuisson\": \"Mijoté\",\r\n  \"origine\": \"Inde\",\r\n  \"ingredients\": [\r\n    {\r\n      \"ingredient\": \"67c97c095c1d2115f242f2e2\",\r\n      \"quantity\": 200\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/recettes/{{recetteID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"recettes",
+								"{{recetteID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer une recette",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code checks\", function () {\r",
+									"    switch (pm.response.code) {\r",
+									"    case 200:\r",
+									"        pm.expect(pm.response.text()).to.eql(\"Recette deleted\");\r",
+									"        break;\r",
+									"    case 400:\r",
+									"        pm.expect(pm.response.text()).to.eql(\"Invalid id: Must be an ObjectId (12-byte hexadecimal string)\");\r",
+									"        break;\r",
+									"    case 404:\r",
+									"     const ingredientId = pm.variables.get(\"ingredientID\");\r",
+									"        pm.expect(pm.response.text()).to.eql(`Recette with id ${ingredientId} not found`);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/recettes/{{recetteID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"recettes",
+								"{{recetteID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ingredients",
+			"item": [
+				{
+					"name": "Récupérer tous les ingrédients",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response body is an array\", function () {",
+									"    pm.expect(pm.response.json()).to.be.an('array');",
+									"    pm.expect(pm.response.json()).to.have.length.above(0);",
+									"});",
+									"",
+									"pm.test(\"Each object in the array has the required properties\", function () {",
+									"    pm.response.json().forEach(function (ingredient) {",
+									"        pm.expect(ingredient).to.have.property('id').and.to.be.a(\"string\")",
+									"        pm.expect(ingredient).to.have.property('nom').and.to.be.a(\"string\")",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Récupérer un ingrédient par ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code checks\", function () {",
+									"    switch (pm.response.code) {",
+									"    case 200:",
+									"        pm.expect(pm.response.json()).to.be.an('object');",
+									"        pm.expect(pm.response.json()).to.have.property('id');",
+									"        pm.expect(pm.response.json()).to.have.property('nom');",
+									"        pm.expect(pm.response.json().id).to.be.a('string');",
+									"        pm.expect(pm.response.json().nom).to.be.a('string');",
+									"        break;",
+									"    case 400:",
+									"        pm.expect(pm.response.text()).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");",
+									"        break;",
+									"    case 404:",
+									"        const ingredientId = pm.variables.get(\"ingredientID\");",
+									"        pm.expect(pm.response.text()).to.include(`Ingredient with id ${ingredientId} not found`)",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/ingredients/{{ingredientID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"ingredients",
+								"{{ingredientID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ajouter un ingrédient",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ingredient full test cases\", function () {",
+									"    switch (pm.response.code) {",
+									"    case 200 :",
+									"        const res200 = pm.response.text()",
+									"        pm.expect(res200).to.eql(\"Ingredient created\");",
+									"    break;",
+									"    case 400 :",
+									"        const res400 = pm.response.json();",
+									"        pm.expect(res400).to.be.an('array');",
+									"        pm.expect(res400).to.have.length.above(0);",
+									"        res400.forEach((ingredient) => {",
+									"            pm.expect(ingredient).to.have.property(\"path\").that.includes(\"nom\");",
+									"            pm.expect(ingredient).to.have.property(\"message\");",
+									"        })",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\":\"Pomme\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/ingredients",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"ingredients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifier un ingrédient",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code checks\", function () {\r",
+									"    switch (pm.response.code) {\r",
+									"    case 200:\r",
+									"        pm.expect(pm.response.text()).to.eql(\"Ingredient updated\")\r",
+									"        break;\r",
+									"    case 400:\r",
+									"        pm.expect(pm.response.text()).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");\r",
+									"        break;\r",
+									"    case 404:\r",
+									"        pm.expect(pm.response.text()).to.eql(`Ingredient not updated`)\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nom\": \"Panamaa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/ingredients/{{ingredientID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"ingredients",
+								"{{ingredientID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Supprimer un ingrédient",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code checks\", function () {\r",
+									"    switch (pm.response.code) {\r",
+									"    case 200:\r",
+									"        pm.expect(pm.response.text()).to.eql(\"Ingredient deleted\");\r",
+									"        break;\r",
+									"    case 400:\r",
+									"        pm.expect(pm.response.text()).to.eql(\"Invalid id : Must be a ObjectId (12-byte hexadecimal string)\");\r",
+									"        break;\r",
+									"    case 404:\r",
+									"     const ingredientId = pm.variables.get(\"ingredientID\");\r",
+									"        pm.expect(pm.response.text()).to.eql(`Ingredient with id ${ingredientId} not found`);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/ingredients/{{ingredientID}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"ingredients",
+								"{{ingredientID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contact",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"fsdf\",\r\n    \"email\":\"alex@d.com\",\r\n    \"message\":\"gjfsjjsdhj\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/contact",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"contact"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "test",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
 }

@@ -14,9 +14,7 @@
 ![alt text](./public/image.png)
 
 ## Lancer le projet
-
-Exécutez à la racine du repo:
-`deno --allow-net --env-file=deno.env --allow-env --allow-read --watch --allow-sys  server.ts`
+Exécutez dans le dossier 'backend' : `deno --allow-net --env-file=deno.env --allow-env --allow-read --watch --allow-sys  server.ts`
 
 Si vous ne voyez pas:
 `Connected to MongoDB
