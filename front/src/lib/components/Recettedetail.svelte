@@ -18,19 +18,19 @@
 		<h1 class="text-2xl font-semibold">{recette.nom}</h1>
 		<div class="mt-4 space-x-2">
 		  <button 
-			on:click={() => goto('/')} 
+			onclick={() => goto('/')} 
 			class="bg-gray-200 border border-gray-300 rounded px-4 py-2 hover:bg-gray-300 cursor-pointer"
 		  >
 			🔙 Retour
 		  </button>
 		  <button 
-			on:click={() => goto(`/recette/${recette.id}/edit`)} 
+			onclick={() => goto(`/recette/${recette.id}/edit`)} 
 			class="bg-blue-500 text-white border border-blue-600 rounded px-4 py-2 hover:bg-blue-600 cursor-pointer"
 		  >
 			✏️ Edit
 		  </button>
 		  <button 
-			on:click={() => { deleteRecette(recette.id).then(() => goto('/')); }} 
+			onclick={() => { deleteRecette(recette.id).then(() => goto('/')); }} 
 			class="bg-red-500 text-white border border-red-600 rounded px-4 py-2 hover:bg-red-600 cursor-pointer"
 		  >
 			🗑️ Delete
