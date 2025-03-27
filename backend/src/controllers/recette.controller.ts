@@ -27,6 +27,7 @@ export const createRecette = async (ctx: RouterContext<"/recettes">) => {
   ctx.response.body = await recetteService.createRecette(
     recetteCandidateDTOToModel(recette)
   );
+  ctx.response.status = 201;
 };
 
 export const updateRecette = async (ctx: RouterContext<"/recettes/:id">) => {

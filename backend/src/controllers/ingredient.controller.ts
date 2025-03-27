@@ -27,6 +27,7 @@ export const createIngredient = async (ctx: RouterContext<"/ingredients">) => {
   ctx.response.body = await ingredientService.createIngredient(
     ingredient as Ingredient
   );
+  ctx.response.status = 201;
 };
 
 export const updateIngredient = async (
