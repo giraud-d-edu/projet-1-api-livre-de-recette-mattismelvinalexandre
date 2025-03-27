@@ -17,7 +17,7 @@ export const createRecette = async (recette: Recette) => {
   for (const ingredient of recette.ingredients) {
     const ingredientId = ingredient.ingredient;
     const ingredientExists = await ingredientRepository.getIngredientById(
-      ingredientId
+      ingredientId.toString()
     );
     if (!ingredientExists) {
       throw new NotFoundError(
