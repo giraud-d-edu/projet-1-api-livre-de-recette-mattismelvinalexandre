@@ -99,7 +99,7 @@
 	}
 
 	function addSousCategory() {
-    if (!$sous_category) return;
+		if (!$sous_category) return;
 		$recette.sous_category = [...$recette.sous_category, $sous_category];
 		sous_category.set('');
 	}
@@ -108,9 +108,9 @@
 		$recette!.ingredients = $recette!.ingredients.filter((i) => i !== ingredient);
 	}
 
-  function handleDeleteSousCategory(sous_category: string) {
-    $recette!.sous_category = $recette!.sous_category.filter((sc) => sc !== sous_category);
-  }
+	function handleDeleteSousCategory(sous_category: string) {
+		$recette!.sous_category = $recette!.sous_category.filter((sc) => sc !== sous_category);
+	}
 </script>
 
 <form
@@ -153,11 +153,11 @@
 			<ul id="ingredients-list" class="list-disc pl-5">
 				{#each $recette.sous_category as sous_category}
 					<div class="mt-2 flex items-center gap-2">
-            <li>{sous_category}</li>
-            <Button type="button" onClick={() => handleDeleteSousCategory(sous_category)}>
-              Supprimer
-            </Button>
-          </div>
+						<li>{sous_category}</li>
+						<Button type="button" onClick={() => handleDeleteSousCategory(sous_category)}>
+							Supprimer
+						</Button>
+					</div>
 				{/each}
 			</ul>
 		</div>
@@ -235,9 +235,12 @@
 		<div>
 			<label for="ingredients-list" class="font-semibold">Ingrédients</label>
 			<ul id="ingredients-list" class="list-disc pl-5">
-				{#each $recette.ingredients as ingredient}
+				{#each $recette.ingredients as ingredient, index}
 					<div class="mt-2 flex items-center gap-2">
 						<li>{ingredient.nom} - {ingredient.quantite_gr} gr</li>
+						{#if $errors[`ingredients[${index}].ingredient`]}
+							<p class="text-sm text-red-500">{$errors[`ingredients[${index}].ingredient`]}</p>
+						{/if}
 						<Button type="button" onClick={() => handleDeleteIngredient(ingredient)}>
 							Supprimer
 						</Button>

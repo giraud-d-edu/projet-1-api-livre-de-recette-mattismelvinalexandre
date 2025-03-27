@@ -1,44 +1,46 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { deleteRecette } from '$lib/stores/recette';
-  
-	let { recette } = $props();
+	
+	export let recette;
+	const noImage = "/noimage.svg";
   </script>
   
   <article class="bg-white rounded-lg p-6 shadow-md max-w-2xl mx-auto my-6">
 	<header class="flex flex-col items-center text-center">
-	  <div class="relative w-full pb-[56.25%]"> 
+	  <div class="relative w-full max-w-md pb-[56.25%]">
 		<img 
-		  src={recette.image || 'https://placehold.co/600x338?text=No+Image'} 
+		  src={recette.image || noImage} 
 		  alt={recette.nom} 
+		  loading="lazy" 
 		  class="absolute inset-0 w-full h-full object-cover rounded-lg"
 		/>
 	  </div>
 	  <div class="mt-4">
 		<h1 class="text-2xl font-semibold">{recette.nom}</h1>
+		<p class="text-gray-600 text-sm mt-2">
+		  {recette.category} ✨ {recette.sous_category.map((sub: any) => sub).join(', ')}
+		</p>
 		<div class="mt-4 space-x-2">
 		  <button 
-			on:click={() => goto('/')} 
+			onclick={() => goto('/')} 
 			class="bg-gray-200 border border-gray-300 rounded px-4 py-2 hover:bg-gray-300 cursor-pointer"
 		  >
 			🔙 Retour
 		  </button>
 		  <button 
-			on:click={() => goto(`/recette/${recette.id}/edit`)} 
+			onclick={() => goto(`/recette/${recette.id}/edit`)} 
 			class="bg-blue-500 text-white border border-blue-600 rounded px-4 py-2 hover:bg-blue-600 cursor-pointer"
 		  >
-			✏️ Edit
+			✏️ Modifier
 		  </button>
 		  <button 
-			on:click={() => { deleteRecette(recette.id).then(() => goto('/')); }} 
+			onclick={() => { deleteRecette(recette.id).then(() => goto('/')); }} 
 			class="bg-red-500 text-white border border-red-600 rounded px-4 py-2 hover:bg-red-600 cursor-pointer"
 		  >
-			🗑️ Delete
+			🗑️ Supprimer
 		  </button>
 		</div>
-		<p class="text-gray-600 text-sm mt-2">
-		  {recette.category} ✨ {recette.sous_category.map((sub: any) => sub).join(', ')}
-		</p>
 	  </div>
 	</header>
   
