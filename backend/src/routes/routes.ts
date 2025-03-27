@@ -1,18 +1,37 @@
 //import { adminRoute, authenticatedRoute } from "../middleware/auth.ts";
 import * as ingredientController from "../controllers/ingredient.controller.ts";
-import { Router } from "../../deps.ts";
+import { FormFile, multiParser, Router, send } from "../../deps.ts";
 import * as recetteController from "../controllers/recette.controller.ts";
 import { ContactDto } from "../controllers/dtos/contact.dto.ts";
 
-export const pingRouter = new Router();
+export const globalRouter = new Router();
 export const ingredientRouter = new Router();
 export const recetteRouter = new Router();
 
-pingRouter.get("/", (ctx) => {
+globalRouter.get("/", (ctx) => {
   ctx.response.body = "Bienvenue sur l'API de MMA";
 });
 
-pingRouter.post("/contact", async (ctx) => {
+globalRouter.get("/upload", async (ctx) => {
+  const form = await multiParser(ctx.request.body.formData());
+  if (form) {
+    const image: FormFile = form.files.image as FormFile;
+    try {
+      await Deno.writeFile(`images/${image.filename}`, image.content);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  ctx.response.body = '{"status": "ok"}';
+});
+
+globalRouter.get("/images", async (ctx) => {
+  await send(ctx, ctx.request.url.pathname, {
+    root: `${Deno.cwd()}`,
+  });
+});
+
+globalRouter.post("/contact", async (ctx) => {
   const contactForm = ContactDto.parse(await ctx.request.body.json());
   ctx.response.body = "Email de l'envoi : " + contactForm.email;
 });
