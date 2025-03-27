@@ -186,20 +186,20 @@
         <div>
             <label for="ingredients-list" class="font-semibold">Ingrédients</label>
             <ul id="ingredients-list" class="list-disc pl-5">
-                {#each $recette.ingredients as ingredient}
+                {#each $recette.ingredients as ingredient, index}
                     <li>{ingredient.nom} - {ingredient.quantite_gr} gr</li>
+                    {#if $errors[`ingredients[${index}].ingredient`]}
+                      <p class="text-red-500 text-sm">{$errors[`ingredients[${index}].ingredient`]}</p>
+                    {/if}
+                    {#if $errors[`ingredients[${index}].quantite_gr`]}
+                      <p class="text-red-500 text-sm">{$errors[`ingredients[${index}].quantite_gr`]}</p>
+                    {/if}
                 {/each}
             </ul>
         </div>
     {/if}
     {#if $errors.ingredients}
       <p class="text-red-500 text-sm">{$errors.ingredients}</p>
-    {/if}
-    {#if $errors.quantite_gr}
-      <p class="text-red-500 text-sm">{$errors.quantite_gr}</p>
-    {/if}
-    {#if $errors.ingredient}
-      <p class="text-red-500 text-sm">{$errors.ingredient}</p>
     {/if}
 
     <Button type="submit">Créer la recette</Button>
