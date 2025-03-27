@@ -24,7 +24,7 @@ jobs:
 
       - name: Vérifier le formatage
         run: deno fmt --check
-        working-directory: back
+        working-directory: backend
 
       - name: Lancer les tests
         run: deno test --allow-read --allow-net
