@@ -33,7 +33,8 @@
     });
 
     async function submitForm() {
-        createRecette($recette).then(() => goto('/'));
+        const id= await createRecette($recette);
+        goto("/recette/" + id)
     }
 
     function addIngredient() {
