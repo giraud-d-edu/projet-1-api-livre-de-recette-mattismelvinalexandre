@@ -41,10 +41,10 @@ jobs:
 
       - name: Installer Node.js
         uses: actions/setup-node@v4
+        working-directory: front
         with:
           node-version: 22
           cache: npm
-          working-directory: front
 
       - name: Installer les dépendances
         run: npm install --no-package-lock
