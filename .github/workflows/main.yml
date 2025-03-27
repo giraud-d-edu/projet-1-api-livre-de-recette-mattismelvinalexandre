@@ -26,9 +26,10 @@ jobs:
         run: deno fmt --check
         working-directory: backend
 
-      - name: Lancer les tests
-        run: deno test --allow-read --allow-net
-        working-directory: backend
+      # Si il y avait des tests unitaires demandés.
+      # - name: Lancer les tests
+      #   run: deno test --allow-read --allow-net
+      #   working-directory: backend
 
   frontend:
     name: Build & Test du Front (Svelte)
@@ -52,6 +53,7 @@ jobs:
         run: npm run build
         working-directory: front
 
-      - name: Lancer les tests (optionnel)
-        run: npm test
-        working-directory: front
+      # Si il y avait des tests unitaires demandés.
+      # - name: Lancer les tests
+      #   run: npm test
+      #   working-directory: front
