@@ -33,7 +33,7 @@
   </button>
 </div>
 
-  <div class="flex flex-wrap gap-4 mb-6">
+  <!-- <div class="flex flex-wrap gap-4 mb-6">
     <div>
       <label for="sous-category" class="block text-sm font-medium mb-1">Sous-catégories</label>
       <select
@@ -89,7 +89,7 @@
         {/each}
       </select>
     </div>
-  </div>
+  </div> -->
 
 {#if loading}
   <p class="text-gray-500">Chargement des recettes...</p>

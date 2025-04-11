@@ -32,7 +32,7 @@ export const createRecette = async (recette: Recette) => {
 export const updateRecette = async (recette: Recette) => {
   const result = await recetteCollection.updateOne(
     { _id: new ObjectId(recette.id) },
-    { $set: recette },
+    { $set: recette }
   );
   if (!result.matchedCount) {
     throw new NotFoundError(`Recette with id ${recette.id} not found`);
@@ -53,18 +53,11 @@ export const deleteRecette = async (id: string) => {
 };
 
 export const deleteIngredientFromAllRecette = async (id: string) => {
-  const result = await recetteCollection.updateMany(
+  await recetteCollection.updateMany(
     { "ingredients.ingredient": new ObjectId(id) },
-    { $pull: { ingredients: { ingredient: new ObjectId(id) } } },
+    { $pull: { ingredients: { ingredient: new ObjectId(id) } } }
   );
-  if (!result.matchedCount) {
-    throw new NotFoundError(`Ingredient with id ${id} not found`);
-  }
-  if (result.matchedCount > 0 && result.modifiedCount === 0) {
-    throw new NotModifiedError(`Ingredient already updated`);
-  }
-  return result.modifiedCount;
-}
+};
 
 export const searchRecettes = async (search: Search) => {
   const query = {

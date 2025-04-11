@@ -9,17 +9,6 @@ export const uniqueInformations = writable<UniqueInformations | null>(null);
 
 export async function getAllRecettes() {
 	const data = await RecettesApi.findAll();
-	for (const recette of data) {
-		recette.ingredients = await Promise.all(
-			recette.ingredients.map(async (ingredient: IngredientQuantity) => {
-				const ingredientData = await IngredientsApi.findOne(ingredient.ingredient as string);
-				return {
-					...ingredient,
-					nom: ingredientData.nom
-				};
-			})
-		);
-	}
 	recettes.set(data);
 }
 
@@ -65,16 +54,5 @@ export async function getAllUniqueInformations() {
 
 export async function searchRecettes(search: Search) {
 	const data = await RecettesApi.search(search);
-	for (const recette of data) {
-		recette.ingredients = await Promise.all(
-			recette.ingredients.map(async (ingredient: IngredientQuantity) => {
-				const ingredientData = await IngredientsApi.findOne(ingredient.ingredient as string);
-				return {
-					...ingredient,
-					nom: ingredientData.nom
-				};
-			})
-		);
-	}
 	recettes.set(data);
 }

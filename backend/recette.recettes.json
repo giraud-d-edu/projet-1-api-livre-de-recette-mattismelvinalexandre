@@ -1,0 +1,669 @@
+[{
+  "_id": {
+    "$oid": "67f9a2e72865aeaa55be595d"
+  },
+  "nom": "Curry de Lentilles Corail",
+  "description": "Un plat végétarien épicé et réconfortant, parfait avec du riz basmati.",
+  "category": "Plat",
+  "sous_category": [
+    "Vegan"
+  ],
+  "tps_preparation_min": 15,
+  "tps_cuisson_min": 25,
+  "type_cuisson": "Mijoté",
+  "origine": "Inde",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a2192865aeaa55be5943"
+      },
+      "quantite_gr": 200
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2682865aeaa55be5952"
+      },
+      "quantite_gr": 150
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a25c2865aeaa55be5950"
+      },
+      "quantite_gr": 10
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a20e2865aeaa55be5941"
+      },
+      "quantite_gr": 100
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a2f22865aeaa55be595e"
+  },
+  "nom": "Soupe de Carottes au Gingembre",
+  "description": "Une soupe douce et légèrement épicée pour se réchauffer en hiver.",
+  "category": "Entrée",
+  "sous_category": [
+    "Vegan",
+    "Sans gluten"
+  ],
+  "tps_preparation_min": 10,
+  "tps_cuisson_min": 20,
+  "type_cuisson": "Mixé",
+  "origine": "France",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a2072865aeaa55be5940"
+      },
+      "quantite_gr": 300
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2602865aeaa55be5951"
+      },
+      "quantite_gr": 10
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a29b2865aeaa55be595b"
+      },
+      "quantite_gr": 500
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a2fb2865aeaa55be595f"
+  },
+  "nom": "Spaghetti Bolognaise",
+  "description": "Un plat italien classique à base de viande hachée et sauce tomate.",
+  "category": "Plat",
+  "sous_category": [
+    "Classique"
+  ],
+  "tps_preparation_min": 15,
+  "tps_cuisson_min": 40,
+  "type_cuisson": "Mijoté",
+  "origine": "Italie",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a24d2865aeaa55be594c"
+      },
+      "quantite_gr": 200
+    },
+    {
+      "ingredient": {
+        "$oid": "67c9a0c4b3791b83f2f7e110"
+      },
+      "quantite_gr": 250
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2122865aeaa55be5942"
+      },
+      "quantite_gr": 200
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a20e2865aeaa55be5941"
+      },
+      "quantite_gr": 100
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a3452865aeaa55be5960"
+  },
+  "nom": "Salade de Quinoa aux Légumes",
+  "description": "Une salade fraîche et nourrissante, parfaite pour l'été.",
+  "category": "Entrée",
+  "sous_category": [
+    "Vegan",
+    "Sans gluten"
+  ],
+  "tps_preparation_min": 20,
+  "tps_cuisson_min": 15,
+  "type_cuisson": "Bouilli",
+  "origine": "Amérique du Sud",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a2512865aeaa55be594d"
+      },
+      "quantite_gr": 150
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2592865aeaa55be594f"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2552865aeaa55be594e"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2942865aeaa55be595a"
+      },
+      "quantite_gr": 20
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a34c2865aeaa55be5961"
+  },
+  "nom": "Poulet au Citron",
+  "description": "Poulet mijoté dans une sauce citronnée, savoureux et léger.",
+  "category": "Plat",
+  "sous_category": [
+    "Sans gluten"
+  ],
+  "tps_preparation_min": 10,
+  "tps_cuisson_min": 30,
+  "type_cuisson": "Mijoté",
+  "origine": "Méditerranée",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a26d2865aeaa55be5953"
+      },
+      "quantite_gr": 250
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2362865aeaa55be5947"
+      },
+      "quantite_gr": 50
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2312865aeaa55be5946"
+      },
+      "quantite_gr": 10
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2942865aeaa55be595a"
+      },
+      "quantite_gr": 20
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a3522865aeaa55be5962"
+  },
+  "nom": "Omelette Fromagère",
+  "description": "Une omelette moelleuse au fromage, simple et rapide.",
+  "category": "Plat",
+  "sous_category": [
+    "Végétarien"
+  ],
+  "tps_preparation_min": 5,
+  "tps_cuisson_min": 5,
+  "type_cuisson": "Poêle",
+  "origine": "France",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a28b2865aeaa55be5958"
+      },
+      "quantite_gr": 150
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a23c2865aeaa55be5948"
+      },
+      "quantite_gr": 50
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2402865aeaa55be5949"
+      },
+      "quantite_gr": 20
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2442865aeaa55be594a"
+      },
+      "quantite_gr": 10
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a3582865aeaa55be5963"
+  },
+  "nom": "Gratin Dauphinois",
+  "description": "Pommes de terre fondantes et crème, un régal au four.",
+  "category": "Plat",
+  "sous_category": [
+    "Végétarien"
+  ],
+  "tps_preparation_min": 15,
+  "tps_cuisson_min": 45,
+  "type_cuisson": "Four",
+  "origine": "France",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a22a2865aeaa55be5945"
+      },
+      "quantite_gr": 400
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2492865aeaa55be594b"
+      },
+      "quantite_gr": 200
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2312865aeaa55be5946"
+      },
+      "quantite_gr": 10
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a23c2865aeaa55be5948"
+      },
+      "quantite_gr": 50
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a35e2865aeaa55be5964"
+  },
+  "nom": "Falafels Maison",
+  "description": "Boulettes de pois chiches croustillantes, parfaites en snack ou en wrap.",
+  "category": "Plat",
+  "sous_category": [
+    "Vegan"
+  ],
+  "tps_preparation_min": 25,
+  "tps_cuisson_min": 10,
+  "type_cuisson": "Frit",
+  "origine": "Moyen-Orient",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a2202865aeaa55be5944"
+      },
+      "quantite_gr": 200
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a27c2865aeaa55be5956"
+      },
+      "quantite_gr": 10
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2312865aeaa55be5946"
+      },
+      "quantite_gr": 10
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2872865aeaa55be5957"
+      },
+      "quantite_gr": 5
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a3642865aeaa55be5965"
+  },
+  "nom": "Riz Cantonais",
+  "description": "Un classique de la cuisine chinoise, rapide et savoureux.",
+  "category": "Plat",
+  "sous_category": [],
+  "tps_preparation_min": 10,
+  "tps_cuisson_min": 20,
+  "type_cuisson": "Wok",
+  "origine": "Chine",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a28b2865aeaa55be5958"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2762865aeaa55be5955"
+      },
+      "quantite_gr": 50
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2712865aeaa55be5954"
+      },
+      "quantite_gr": 100
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a39f2865aeaa55be5966"
+  },
+  "nom": "Taboulé de Quinoa",
+  "description": "Salade libanaise revisitée au quinoa, fraîche et légère.",
+  "category": "Entrée",
+  "sous_category": [
+    "Vegan"
+  ],
+  "tps_preparation_min": 15,
+  "tps_cuisson_min": 10,
+  "type_cuisson": "Bouilli",
+  "origine": "Liban",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a2512865aeaa55be594d"
+      },
+      "quantite_gr": 150
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2362865aeaa55be5947"
+      },
+      "quantite_gr": 30
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2592865aeaa55be594f"
+      },
+      "quantite_gr": 80
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a27c2865aeaa55be5956"
+      },
+      "quantite_gr": 5
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a3a72865aeaa55be5967"
+  },
+  "nom": "Tajine de Pois Chiches",
+  "description": "Plat marocain mijoté avec pois chiches, légumes et épices.",
+  "category": "Plat",
+  "sous_category": [
+    "Vegan"
+  ],
+  "tps_preparation_min": 20,
+  "tps_cuisson_min": 45,
+  "type_cuisson": "Mijoté",
+  "origine": "Maroc",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a2202865aeaa55be5944"
+      },
+      "quantite_gr": 200
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2072865aeaa55be5940"
+      },
+      "quantite_gr": 150
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a25c2865aeaa55be5950"
+      },
+      "quantite_gr": 10
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2872865aeaa55be5957"
+      },
+      "quantite_gr": 5
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a3ad2865aeaa55be5968"
+  },
+  "nom": "Velouté de Pomme de Terre et Poireau",
+  "description": "Un velouté onctueux pour les soirées froides.",
+  "category": "Entrée",
+  "sous_category": [
+    "Végétarien"
+  ],
+  "tps_preparation_min": 10,
+  "tps_cuisson_min": 25,
+  "type_cuisson": "Mixé",
+  "origine": "France",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a22a2865aeaa55be5945"
+      },
+      "quantite_gr": 300
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2492865aeaa55be594b"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a20e2865aeaa55be5941"
+      },
+      "quantite_gr": 100
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a3b52865aeaa55be5969"
+  },
+  "nom": "Wok de Légumes au Curry",
+  "description": "Un plat rapide et plein de saveurs à base de légumes sautés.",
+  "category": "Plat",
+  "sous_category": [
+    "Vegan"
+  ],
+  "tps_preparation_min": 15,
+  "tps_cuisson_min": 10,
+  "type_cuisson": "Wok",
+  "origine": "Asie",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a2592865aeaa55be594f"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2552865aeaa55be594e"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a25c2865aeaa55be5950"
+      },
+      "quantite_gr": 10
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2942865aeaa55be595a"
+      },
+      "quantite_gr": 20
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a3bd2865aeaa55be596a"
+  },
+  "nom": "Galette de Pommes de Terre",
+  "description": "Galettes croustillantes à base de pomme de terre râpée.",
+  "category": "Plat",
+  "sous_category": [
+    "Végétarien"
+  ],
+  "tps_preparation_min": 15,
+  "tps_cuisson_min": 15,
+  "type_cuisson": "Poêle",
+  "origine": "Europe",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a22a2865aeaa55be5945"
+      },
+      "quantite_gr": 300
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a28b2865aeaa55be5958"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2942865aeaa55be595a"
+      },
+      "quantite_gr": 20
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2312865aeaa55be5946"
+      },
+      "quantite_gr": 10
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a3c52865aeaa55be596b"
+  },
+  "nom": "Wraps Poulet & Crudités",
+  "description": "Wraps frais et protéinés, parfaits pour un repas rapide.",
+  "category": "Plat",
+  "sous_category": [],
+  "tps_preparation_min": 10,
+  "tps_cuisson_min": 10,
+  "type_cuisson": "Poêle",
+  "origine": "États-Unis",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a26d2865aeaa55be5953"
+      },
+      "quantite_gr": 150
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2552865aeaa55be594e"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2592865aeaa55be594f"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a27c2865aeaa55be5956"
+      },
+      "quantite_gr": 5
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a3cc2865aeaa55be596c"
+  },
+  "nom": "Pâtes à la Crème et Champignons",
+  "description": "Des pâtes onctueuses avec une sauce à la crème et champignons.",
+  "category": "Plat",
+  "sous_category": [
+    "Végétarien"
+  ],
+  "tps_preparation_min": 10,
+  "tps_cuisson_min": 15,
+  "type_cuisson": "Poêle",
+  "origine": "Italie",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a24d2865aeaa55be594c"
+      },
+      "quantite_gr": 200
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2492865aeaa55be594b"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2312865aeaa55be5946"
+      },
+      "quantite_gr": 10
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67f9a3e12865aeaa55be596d"
+  },
+  "nom": "Pain Perdu",
+  "description": "Délicieuse façon de recycler le pain rassis avec une touche sucrée.",
+  "category": "Dessert",
+  "sous_category": [],
+  "tps_preparation_min": 5,
+  "tps_cuisson_min": 5,
+  "type_cuisson": "Poêle",
+  "origine": "France",
+  "ingredients": [
+    {
+      "ingredient": {
+        "$oid": "67f9a28b2865aeaa55be5958"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a28f2865aeaa55be5959"
+      },
+      "quantite_gr": 30
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2402865aeaa55be5949"
+      },
+      "quantite_gr": 100
+    },
+    {
+      "ingredient": {
+        "$oid": "67f9a2442865aeaa55be594a"
+      },
+      "quantite_gr": 20
+    }
+  ]
+}]

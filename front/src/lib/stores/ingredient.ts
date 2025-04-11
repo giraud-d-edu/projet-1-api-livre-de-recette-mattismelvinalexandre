@@ -15,6 +15,7 @@ export async function addIngredient(ingredient: string) {
 }
 
 export async function deleteIngredient(id: string) {
+	console.log('Deleting ingredient with id:', id);
 	await IngredientsApi.remove(id);
 	ingredients.update((current) => current.filter((i) => i.id !== id));
 }
