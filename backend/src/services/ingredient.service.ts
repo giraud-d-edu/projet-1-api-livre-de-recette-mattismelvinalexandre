@@ -1,4 +1,5 @@
 import * as ingredientRepository from "../repositories/ingredient.repository.ts";
+import * as recetteRepository from "../repositories/recette.repository.ts";
 import Ingredient from "../models/ingredient.model.ts";
 
 export const getAllIngredients = async () => {
@@ -18,5 +19,6 @@ export const updateIngredient = async (ingredient: Ingredient) => {
 };
 
 export const deleteIngredient = async (id: string) => {
+  await recetteRepository.deleteIngredientFromAllRecette(id);
   return await ingredientRepository.deleteIngredient(id);
 };
