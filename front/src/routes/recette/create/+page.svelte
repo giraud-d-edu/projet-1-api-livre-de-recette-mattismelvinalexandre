@@ -9,6 +9,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import { getAllIngredients, ingredients } from '$lib/stores/ingredient';
 	import { createRecette } from '$lib/stores/recette';
+    import Swal from "sweetalert2";
 
 	let ingredient_quantity = writable<IngredientQuantity>({
 		ingredient: '',
@@ -71,7 +72,22 @@
 	async function submitForm() {
 		if (validateForm()) {
 			const id = await createRecette($recette);
-			goto('/recette/' + id);
+			if (id) {
+				Swal.fire({
+					title: 'Recette créée !',
+					text: 'La recette a été créée avec succès.',
+					icon: 'success',
+					timer: 2000,
+					timerProgressBar: true
+				});
+				goto('/recette/' + id);
+			} else {
+				Swal.fire({
+					title: 'Erreur !',
+					text: 'Une erreur est survenue lors de la création de la recette.',
+					icon: 'error'
+				});
+			}
 		}
 	}
 

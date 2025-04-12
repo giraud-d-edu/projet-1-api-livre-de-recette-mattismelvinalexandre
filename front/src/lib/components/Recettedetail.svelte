@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { deleteRecette } from '$lib/stores/recette';
+	import Swal from 'sweetalert2';
 	
 	export let recette;
 	const noImage = "/noimage.svg";
@@ -35,7 +36,27 @@
 			✏️ Modifier
 		  </button>
 		  <button 
-			onclick={() => { deleteRecette(recette.id).then(() => goto('/')); }} 
+			onclick={async () => { 
+				const result = await Swal.fire({
+					title: "Êtes-vous sûr?",
+					text: "Cette action supprimera la recette définitivement!",
+					icon: "warning",
+					showCancelButton: true,
+					confirmButtonText: "Supprimer",
+					cancelButtonText: "Annuler",
+				});
+				if (result.isConfirmed) {
+					await deleteRecette(recette.id)
+					Swal.fire({
+						title: "Supprimé!",
+						text: "La recette a été supprimée avec succès.",
+						icon: "success",
+						timer: 2000,
+						timerProgressBar: true,
+					});
+					goto('/');
+				}
+			}}
 			class="bg-red-500 text-white border border-red-600 rounded px-4 py-2 hover:bg-red-600 cursor-pointer"
 		  >
 			🗑️ Supprimer
