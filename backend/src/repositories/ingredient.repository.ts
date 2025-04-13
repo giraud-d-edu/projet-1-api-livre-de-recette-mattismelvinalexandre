@@ -9,7 +9,10 @@ import Ingredient from "../models/ingredient.model.ts";
 import NotModifiedError from "../errors/NotModified.error.ts";
 
 export const getAllIngredients = async () => {
-  const ingredients = await ingredientCollection.find().toArray();
+  const ingredients = await ingredientCollection
+    .find()
+    .sort({ nom: 1 })
+    .toArray();
   return ingredients.map(IngredientDBOToModel);
 };
 

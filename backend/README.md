@@ -28,3 +28,21 @@ qu'il n'y a pas de conflit de ports.`localhost`
 
 Vous pouvez importer la collection `API Recettes Deno.postman_collection.json`
 disponible à la racine du repo.
+
+## MongoDB - Importation des données
+
+Pour faciliter l'initialisation de la base de données, vous pouvez importer les
+dumps des collections `recettes` et `ingredients` directement dans **MongoDB
+Compass** :
+
+1. Ouvrez **MongoDB Compass**.
+2. Naviguez vers la base de données `recette`.
+3. Cliquez sur la collection `ingredients` ou `recettes`.
+4. Sélectionnez **"Import Data"**.
+5. Choisissez le fichier JSON correspondant :
+   - `recette.ingredients.json` pour les ingrédients.
+   - `recette.recettes.json` pour les recettes.
+6. Validez l'importation.
+
+Cela permettra de pré-remplir les collections avec des données de test pour
+démarrer rapidement.
