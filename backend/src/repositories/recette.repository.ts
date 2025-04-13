@@ -62,7 +62,13 @@ export const deleteIngredientFromAllRecette = async (id: string) => {
 export const searchRecettes = async (search: Search) => {
   const query = {
     ...(search.nom && { nom: { $regex: search.nom, $options: "i" } }),
-    ...(search.ingredients && { ingredients: { $all: search.ingredients } }),
+    ...(search.ingredients && {
+      ingredients: {
+        $elemMatch: {
+          ingredient: { $in: search.ingredients.map((id) => new ObjectId(id)) },
+        },
+      },
+    }),
     ...(search.category && { category: search.category }),
     ...(search.sous_category && {
       sous_category: { $all: search.sous_category },

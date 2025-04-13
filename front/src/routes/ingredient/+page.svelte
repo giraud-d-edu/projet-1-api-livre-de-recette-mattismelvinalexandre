@@ -3,6 +3,7 @@
     import { onMount } from 'svelte';
     import Input from '$lib/components/Input.svelte';
     import Swal from "sweetalert2";
+	import { searchRecettes,recettes} from '$lib/stores/recette';
   
     let loading = true;
     let newIngredient = '';
@@ -55,7 +56,7 @@
     on:click={async () => {
       await addNewIngredient();
     }}
-    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4"
+    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-4 cursor-pointer"
   >
     Ajouter
   </button>
@@ -70,9 +71,12 @@
         <span class="text-gray-800">{ingredient.nom}</span>
         <button 
             on:click={async () => {
+              await searchRecettes({ ingredients: [ingredient.id as string] });
             const result = await Swal.fire({
               title: 'Êtes-vous sûr ?',
-              text: "Cette action est irréversible !",
+              html: $recettes.length > 0 
+              ? `Les recettes suivantes utilisent cet ingrédient :<br><ul>${$recettes.map(recette => `<li>${recette.nom}</li>`).join('')}</ul><br>Cette action est irréversible !`
+              : "Cette action est irréversible !",
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -92,7 +96,7 @@
                 });
             }
             }}
-          class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+          class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 cursor-pointer"
         >
           Supprimer
         </button>

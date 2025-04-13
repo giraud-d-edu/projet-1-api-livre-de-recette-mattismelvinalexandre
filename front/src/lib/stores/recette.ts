@@ -55,4 +55,5 @@ export async function getAllUniqueInformations() {
 export async function searchRecettes(search: Search) {
 	const data = await RecettesApi.search(search);
 	recettes.set(data);
+	return data;
 }
