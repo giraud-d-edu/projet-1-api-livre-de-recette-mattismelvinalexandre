@@ -23,6 +23,7 @@ Consultez les guides spécifiques à chaque partie du projet :
 - ✅ Mise de côté du filtre dans le frontend (complexité jugée inutile pour le moment).
 - ✅ Export des données MongoDB désormais disponible.
 - ✅ Ajout d'alertes pour les actions d'ajout, modification et suppression.
+- ✅ Composant RecetteForm -> fusion edit/create
 
 ---
 
