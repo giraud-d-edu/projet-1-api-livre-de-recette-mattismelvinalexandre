@@ -7,6 +7,7 @@
 	import {  type IngredientQuantity } from '$lib/types/recette';
 	import { writable } from 'svelte/store';
 	import RecetteForm from '$lib/components/RecetteForm.svelte';
+	import Swal from 'sweetalert2';
 
 	let loading = true;
 	let error = '';
@@ -26,9 +27,20 @@
 	async function submitForm() {
 		try {
 			await updateRecette($recette!);
+			Swal.fire({
+				title: 'Recette mise à jour !',
+				text: 'La recette a été mise à jour avec succès.',
+				icon: 'success',
+				timer: 2000,
+				timerProgressBar: true
+			});
 			goto('/recette/' + $recette?.id);
 		} catch (err) {
-			error = 'Échec de la mise à jour de la recette.';
+			Swal.fire({
+				title: 'Erreur !',
+				text: 'Une erreur est survenue lors de la mise à jour de la recette.',
+				icon: 'error'
+			});
 		}
 	}
 
