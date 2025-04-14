@@ -13,6 +13,13 @@ app.use(
   }),
 );
 
+app.use(async (ctx, next) => {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  console.log(`${ctx.request.method} ${ctx.request.url} - ${ms}ms`);
+});
+
 app.use(errorHandler);
 
 app.use(globalRouter.routes());

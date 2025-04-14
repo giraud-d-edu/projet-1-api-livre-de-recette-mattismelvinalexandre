@@ -23,6 +23,9 @@ export const errorHandler = async (context: Context, next: Next) => {
       context.response.status = Status.InternalServerError;
       context.response.body = (err as Error).message;
     }
+    console.log(
+      `Error: ${context.request.method} ${context.request.url} - ${context.response.status} - ${err}`,
+    );
     context.response.type = "json";
   }
 };
