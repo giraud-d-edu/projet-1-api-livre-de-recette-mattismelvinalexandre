@@ -16,7 +16,6 @@
 		const id = $page.params.id;
 		try {
 			await getRecette(id);
-			await getAllIngredients();
 		} catch (err) {
 			error = 'Impossible de charger la recette.';
 		} finally {

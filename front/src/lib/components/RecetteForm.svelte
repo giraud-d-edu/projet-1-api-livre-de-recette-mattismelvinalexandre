@@ -4,8 +4,9 @@
     import TextAreaField from '$lib/components/TextArea.svelte';
     import SelectField from '$lib/components/SelectField.svelte';
     import Button from '$lib/components/Button.svelte';
-    import { ingredients } from '$lib/stores/ingredient';
+    import { getAllIngredients, ingredients } from '$lib/stores/ingredient';
     import { Category, type IngredientQuantity, type Recette } from '$lib/types/recette';
+	import { onMount } from 'svelte';
 
     export let mode: 'create' | 'update';
     export let recette: Recette;
@@ -72,6 +73,10 @@
     function handleDeleteSousCategory(sous_category: string) {
         recette.sous_category = recette.sous_category.filter((sc) => sc !== sous_category);
     }
+
+    onMount(async () => {
+		await getAllIngredients();
+	});
 
     async function submitForm() {
         if (validateForm()) {
